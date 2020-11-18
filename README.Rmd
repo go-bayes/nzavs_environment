@@ -1,0 +1,34 @@
+---
+title: "Untitled"
+author: "Joseph Bulbulia"
+date: "18/11/2020"
+output: html_document
+---
+
+# nzavs_environment
+What is promoting and hindering environmental attitudes in New Zealand over time?
+
+This repository is a work in progress. Presently, its contents consist of 
+
+1. A talk that JB gave to the Biology department at Victoria University:
+
+Abstract:
+> The New Zealand Attitudes and Values Study (NZAVS) is a nationally representative longitudinal investigation of attitudes, employment, health, and well-being in New Zealanders. The study started in 2009 and is tracking over 40,000 randomly sampled residents each year. Here, we investigate the longitudinal predictors of stability and change in environmental beliefs and behaviours within New Zealanders during the past decade. Despite increasing acceptance of human-caused climate change, most New Zealanders have not changed in thinking their behaviours can make a difference. Religious New Zealanders are more inclined to think their behaviours can help the environment and report making greater environmental sacrifices. However, during the past decade, highly religious New Zealanders have not become more accepting of human-caused climate change. These surprising, yet credible, differences in environmental orientations among secular and religious New Zealanders reveal distinct challenges and opportunities for environmental education and action
+
+
+2. The analyses for this talk under the file "init_analysis.R"
+
+3. The beamer code for the talk, in the folder "2020_October_Bulbulia_VUW_BIOTALK"
+
+4. The talk itself, a pdf with the same name as the Beamer folder. 
+
+The idea for the talk emerged from a conversation with Dom Johnson at Oxford University, who suggested investigated the relationship religious identification and conservation/ecological attitudes over time.
+
+However the talk grew from there to include other predictors of conservation/ecological attitudes over time.
+
+
+The R code is far from tidy.  I've set it as my objective to write easier, efficient code, to write functions and to docuement my code better.  
+
+I expect this repos to be a moving feast. 
+
+Comments welcome to: joseph.bulbulia@gmail.com
