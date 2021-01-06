@@ -1,0 +1,135 @@
+---
+title: Environmental opporunities among secular and religious New Zealanders
+author: "Joseph Bulbulia"
+date: "Biola Jan 9 2021"
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+  extra_dependencies: ["rotating", "booktabs", "graphicx","longtable","amsmath","amsfonts","amssymb"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r load_libraries, echo=FALSE, include=FALSE}
+source("libs.R")
+source("funs.R")
+```
+
+```{r  echo=FALSE, include=FALSE}
+# setup
+
+# read data
+d <- data_read()
+
+# take longitudinal cases (i.e more than one response)
+dom <- data_take_longitudinal_cases( d )
+
+# show unique id
+length(unique(dom$Id)) 
+
+# years
+max(dom$years)
+
+
+# label changes
+dom$Your_Future_Security <- dom$SWB.SatPWI03
+dom$MostNZPoliciesServeGrGood <- dom$SysJust04
+dom$Religious <-
+  factor(dom$Religious, labels = c("Not_Religious", "Religious"))
+
+table1::label(dom$Env.ClimateChgReal) <- "Climate Change Reality"
+table1::label(dom$Env.ClimateChgCause) <-
+  "Humans Cause Climate Change"
+table1::label(dom$EnvEfficacy) <- "Human Efficacy"
+table1::label(dom$Env.SacMade) <- "Sacrificed for Environment"
+table1::label(dom$Env.SacWilling) <-
+  "Willing to Sacrifice Environment"
+table1::label(dom$Env.MotorwaySpend) <- "Gov Motorway Spend"
+table1::label(dom$Env.PubTransSubs) <-
+  "Gov Subsidy Public Transport"
+table1::label(dom$Env.NATIVE.SPECIES) <- "Protect NZ Species"
+table1::label(dom$Env.SatNZEnvironment) <-
+  "Sat Quality NZ Environment"
+table1::label(dom$Env.ClimateChgConcern) <-
+  "Deeply Concerned About Climate"
+dom$Your_Future_SecurityS = scale(dom$Your_Future_Security)
+dom$K6S = scale(dom$KESSLER6)
+
+dom$Env.SatNZEnvironmentS <- scale(dom$Env.SatNZEnvironment)
+dom$Your_Future_SecurityS <- scale(dom$Your_Future_Security)
+dom$Env.ClimateChgConcernS <- scale(dom$Env.ClimateChgConcern)
+dom$EnvEfficacyS <- scale(dom$EnvEfficacy)
+dom$RelidS <- scale(dom$Relid)
+```
+
+
+
+## Background: New Zealand Attitudes and Values Study
+## What is the New Zealand Attitudes and Values Study (NZAVS)?
+    - Planned 20-year longitudinal study, currently in its 11th year.
+    - Postal questionnaire.
+    - Sample frame drawn randomly from NZ Electoral Roll.
+    - Large multidisciplinary research team.
+    - Focus on personality, social attitudes, values, religion, adult character development, identity, employment, experiences of discrimination, well-being and health, and {\bf environmental attitudes}.
+    - Current sample contains > 42,000 unique people, or 1.45\% of the adult NZ population (we have responses from 61,535 individuals.
+
+##
+
+```{r}
+ table1::table1(
+  ~ Env.ClimateChgReal + Env.ClimateChgCause + EnvEfficacy + Env.SacMade + Env.SacWilling + Env.SatNZEnvironment + Env.ClimateChgConcern |
+    Wave,
+  data = dom,
+  overall = T,
+  transpose = T
+)
+```
+
+
+##
+```{r , includ=FALSE}
+mll <-
+  lmer(Env.SacMade ~ years * (Env.ClimateChgConcernS * RelidS) + (1 |
+                                                                    Id),
+       data = dom)
+```
+
+```{r, echo = FALSE}
+plot(ggpredict(mll, terms = c(
+  "years", "Env.ClimateChgConcernS", "RelidS"
+)))
+```
+
+       
+       
+
+
+<div class="notes">
+This is my *note*.
+
+- It can contain markdown
+- like this list
+</div>
+
+
+## Slide with Bullets
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## Slide with R Output
+
+```{r cars, echo = TRUE}
+summary(cars)
+```
+
+## Slide with Plot
+
+```{r pressure}
+plot(pressure)
+```
+
