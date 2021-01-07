@@ -1,14 +1,15 @@
 ---
-title:  A national longitudinal study of religion of religion and climate beliefs/behaviours | New Zealand
+title: A national longitudinal study of religion of religion and climate beliefs/behaviours
+  | New Zealand
 author: "Joseph Bulbulia"
 date: "Biola Jan 9 2021"
-output: 
- ioslides_presentation:
-    incremental: true
-    widescreen: true
-    smaller: true 
-    font_adjustment: -3
-
+output:
+  ioslides_presentation:
+    # logo: logo2.png
+    incremental: yes
+    widescreen: yes
+    smaller: yes
+    font_adjustment: -1
 ---
 
 ```{r global_options,  include = FALSE}
@@ -74,43 +75,83 @@ dom <- dom %>%
 #                                                                            Id),
 #        data = dom)
 
-# climate beliefs 
+# climate beliefs
 # climate change is real
-cb1_p <-lmer(Env.ClimateChgReal ~ yearsC *  PoliticalConservativism_betweenC + PoliticalConservativism_within +  (1 + PoliticalConservativism_betweenC|Id) +  (PoliticalConservativism_within|Id), 
-           data = dom)
-cb1_r<- lmer(Env.ClimateChgReal ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_betweenC|Id) +  (Relid_within|Id), 
-           data = dom)
+cb1_p <-
+  lmer(
+    Env.ClimateChgReal ~ yearsC *  PoliticalConservativism_betweenC + PoliticalConservativism_within +  (1 + PoliticalConservativism_betweenC |
+                                                                                                           Id) +  (1 + PoliticalConservativism_within | Id),
+    data = dom
+  )
+cb1_r <-
+  lmer(
+    Env.ClimateChgReal ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_betweenC |
+                                                                       Id) +  (1  + Relid_within | Id),
+    data = dom
+  )
 
 # climate change is human caused
-cb2_p <-lmer(Env.ClimateChgCause ~ yearsC *  PoliticalConservativism_betweenC + PoliticalConservativism_within +  (1 + PoliticalConservativism_betweenC|Id) +  (PoliticalConservativism_within|Id), 
-           data = dom)
-cb2_r<- lmer(Env.ClimateChgCause ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_betweenC|Id) +  (Relid_within|Id), 
-           data = dom)
+cb2_p <-
+  lmer(
+    Env.ClimateChgCause ~ yearsC *  PoliticalConservativism_betweenC + PoliticalConservativism_within +  (1 + PoliticalConservativism_betweenC |
+                                                                                                            Id) +  (1 + PoliticalConservativism_within | Id),
+    data = dom
+  )
+cb2_r <-
+  lmer(
+    Env.ClimateChgCause ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_betweenC |
+                                                                        Id) +  (1 + Relid_within | Id),
+    data = dom
+  )
 
 
 # "I am deeply concerned about climate change."
 
-cc2_p <-lmer(Env.ClimateChgConcern ~ yearsC *  PoliticalConservativism_betweenC + PoliticalConservativism_within +  (1 + PoliticalConservativism_betweenC|Id) +  (PoliticalConservativism_within|Id), 
-           data = dom)
-cc2_r<- lmer(Env.ClimateChgConcern ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_betweenC|Id) +  (Relid_within|Id), 
-           data = dom)
+cc2_p <-
+  lmer(
+    Env.ClimateChgConcern ~ yearsC *  PoliticalConservativism_betweenC + PoliticalConservativism_within +  (1 + PoliticalConservativism_betweenC |
+                                                                                                              Id) +  (1 + PoliticalConservativism_within | Id),
+    data = dom
+  )
+cc2_r <-
+  lmer(
+    Env.ClimateChgConcern ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_betweenC |
+                                                                          Id) +  (1 + Relid_within | Id),
+    data = dom
+  )
 
 #"By taking personal action I believe I can make a positive difference to environmental problems."
 #"I feel I can make a difference to the state of the environment."
-ee_p <-lmer(EnvEfficacy ~ yearsC *  PoliticalConservativism_betweenC + PoliticalConservativism_within +  (1 + PoliticalConservativism_betweenC|Id) +  (PoliticalConservativism_within|Id), 
-           data = dom)
-ee_r<- lmer(EnvEfficacy ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_betweenC|Id) +  (Relid_within|Id), 
-           data = dom)
+ee_p <-
+  lmer(
+    EnvEfficacy ~ yearsC *  PoliticalConservativism_betweenC + PoliticalConservativism_within +  (1 + PoliticalConservativism_betweenC |
+                                                                                                    Id) +  (1 + PoliticalConservativism_within | Id),
+    data = dom
+  )
+ee_r <-
+  lmer(
+    EnvEfficacy ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_betweenC |
+                                                                Id) +  (1 + Relid_within | Id),
+    data = dom
+  )
 
 ##"Have you made sacrifices to your standard of living (e.g., accepted higher prices, driven less, conserved energy) in order to protect the environment?"
-es_p <-lmer(Env.SacMade ~ yearsC *  PoliticalConservativism_betweenC + PoliticalConservativism_within +  (1 + PoliticalConservativism_betweenC|Id) +  (PoliticalConservativism_within|Id), 
-           data = dom)
-es_r<- lmer(Env.SacMade ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_betweenC|Id) +  (Relid_within|Id), 
-           data = dom)
+es_p <-
+  lmer(
+    Env.SacMade ~ yearsC *  PoliticalConservativism_betweenC + PoliticalConservativism_within +  (1 + PoliticalConservativism_betweenC |
+                                                                                                    Id) +  (1 + PoliticalConservativism_within | Id),
+    data = dom
+  )
+es_r <-
+  lmer(
+    Env.SacMade ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_betweenC |
+                                                                Id) +  (1 + Relid_within | Id),
+    data = dom
+  )
 ```
 
 
-## What is the New Zealand Attitudes and Values Study (NZAVS)?
+## What is the New Zealand Attitudes and Values Study (NZAVS)
 
   - Planned 20-year longitudinal study, currently in its 11$^{th}$ year.
     
@@ -122,19 +163,14 @@ es_r<- lmer(Env.SacMade ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_
     
   - Focus on personality, social attitudes, values, religion, adult character development, identity, employment, experiences of discrimination, well-being and health, and environmental attitudes ...
     
-  - Current sample contains $>42,000$ unique people, or $1.45\%$ of the adult NZ population.
+  - Current sample contains >42,000 unique people, or 1.45% of the adult NZ population.
     
-  - Here, we draw on  $N = 26,790$ longitudinal participants who responded to two or more waves from 2009 -- 2018
+  - Here, we draw on N = 26,790 longitudinal participants who responded to two or more waves from 2009 -- 2018
 
-##
-
-```{r}
-knitr::include_graphics("NZAVSHISTOGRAM.png")
-```
+## Histogram of Responses{data-background=NZAVSHISTOGRAM.png data-background-size=cover
 
 
-
-## Here, we investigate
+## We investigate
 
   1. Climate Beliefs
   
@@ -154,20 +190,29 @@ d2<- dom %>%
     Rel_win = Relid_within,
     Rel_betw = Relid_betweenC
     )
-eqa<- lmer(outcome ~ years *  Rel_betw +  Rel_win + (1 + Rel_betw|Id) +  (Rel_win|Id), 
+eqa<- lmer(outcome ~ years *  Rel_betw +  Rel_win + (1 + Rel_betw|Id) +  (1 + Rel_win|Id), 
            data = d2)
 ```
 ```{r modelequation}
-equatiomatic::extract_eq(eqa, wrap = TRUE,  terms_per_line = 3)
+equatiomatic::extract_eq(eqa, wrap = TRUE, mean_separate	= TRUE ) 
 ```
 
+<div class="notes">
+We quantitatively consider: 
+
+  1. *Between Person Differences*: "How do political and religious commitments predict ecological attitudes and behaviors"; 
+  2. *Time Trends*: "How are these relationships changing overtime"
+  3. *Within Person Differences*: "how does change within an individual in political and religious commitments affect ecological attitudes and behaviors?"
+  4. *Comparative Dynamics*: "How do these trends within/between individuals differ for political and religious commitments
+
+</div>
 
 ## Climate Beliefs
 
 "Climate change is real."
 
 
-## Climate change is real: political conservativism between 
+## Climate change reality|  conservativism between: strong upward trend with large political divisions 
 
 
 ```{r cb1_p, cache = TRUE}
@@ -177,7 +222,16 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(3,8))) # 
 ```
 
-## Climate change is real: political conservativism within 
+<div class="notes">
+Key points:
+
+- Over the past decade, there has been a strong trend for increasing climate reality beliefs.
+
+- The gap between political conservatives and liberals is large, and constant (i.e. no interaction).
+
+</div>
+
+## Climate change reality| political conservativism within moves in the same direction 
 
 ```{r cb12, cache = TRUE}
 plot(ggpredict(
@@ -186,7 +240,18 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(3,8))) # 
 ```
 
-## Climate change is real: religious identification between 
+
+<div class="notes">
+Key points:
+
+- Those who become more conservative are expected to become less believing of climate change over time.
+
+- Those who become more liberal are expected to become more believing of climate change over time.
+
+</div>
+
+
+## Climate change reality| religious identification between trend shows nonlinear differentiation
 
 ```{r cb13, cache = TRUE}
 plot(ggpredict(
@@ -195,7 +260,19 @@ plot(ggpredict(
 ))  + scale_y_continuous(limits= (c(3,8))) # 
 ```
 
-## Climate change is real: religious identification within 
+<div class="notes">
+Key points:
+
+- Religious people are less accepting of climate change.
+
+- Nonlinear change: the gap between highly identified religious people and secular people is  *growing*.
+
+</div>
+
+
+
+
+## Climate change reality| religious identification within moves against the between group trend
 
 ```{r cb14, cache = TRUE}
 plot(ggpredict(
@@ -204,17 +281,35 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(3,8))) 
 ```
 
-## Table of Religion Climate Reality Trend
+
+<div class="notes">
+Key points:
+
+- Those who become more religious are expected to become slighly *more* believing of climate change over time.
+
+</div>
+
+
+## Climate change reality| religious identification 
 
 ```{r cb1T,cache = TRUE}
 tab_model(cb1_r, show.r2 = FALSE )
 ```
 
+
+<div class="notes">
+Key points:
+
+- The expected change *within* religious people is small, but steady, and it is tilting in the *opposite* direction to the between-individual trend. 
+
+</div>
+
+
 ## Beliefs in Human Caused Climate Change
 
 > "Climate change is caused by humans."
 
-## Climate change is human caused: political conservativism between 
+## Human-caused climate change | political conservativism between = similar story 
 
 ```{r cb21, cache = TRUE}
 plot(ggpredict(
@@ -223,7 +318,20 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(3,8))) 
 ```
 
-## Climate change is human caused: political conservativism within 
+
+
+<div class="notes">
+similar story: 
+
+- Over the past decade, there has been a strong trend for increasing human caused climate reality beliefs
+
+- the gap between political conservatives and liberals is large, and constant (i.e. no interaction)
+
+</div>
+
+
+
+##  Human-caused climate change | political conservativism within = similar story 
 
 ```{r cb22, cache = TRUE}
 plot(ggpredict(
@@ -232,7 +340,18 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(3,8))) 
 ```
 
-## Climate change is human caused: religious identification between 
+<div class="notes">
+Similar story 
+
+- Those who become more conservative are expected to become less believing of human caused climate change over time.
+
+- Those who become more liberal are expected to become more believing of human caused climate change over time.
+
+</div>
+
+
+
+##  Human-caused climate change| religious identification between = similar story 
 
 ```{r cb23, cache = TRUE}
 plot(ggpredict(
@@ -241,7 +360,19 @@ plot(ggpredict(
 ))  + scale_y_continuous(limits= (c(3,8))) 
 ```
 
-## Climate change is human caused: religious identification within 
+<div class="notes">
+Similar story:
+
+- Religious people are less accepting of human caused climate change.
+
+- Nonlinear trend: the gap between highly identified religious people and secular people is  *growing*.
+
+</div>
+
+
+
+
+## Human-caused climate change| religious identification within = similar story 
 
 ```{r cb2T4, cache = TRUE}
 plot(ggpredict(
@@ -250,15 +381,33 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(3,8))) 
 ```
 
-## Climate Concern
 
-> "I am deeply concerned about climate change."
+<div class="notes">
+Similar Story:
+Those who become more religious are expected to become slighly *more* believing of climate change over time.
 
-## Table of Religion Climate is Human Caused Trend
+</div>
+
+
+##   Human-caused climate change| religious identification 
 
 ```{r cb2T,cache = TRUE}
 tab_model(cb2_r, show.r2 = FALSE )
 ```
+
+<div class="notes">
+
+Similar story: the expected change *within* religious people is small, but steady, and it is tilting in the *opposite* direction to the between-individual trend. 
+
+</div>
+
+
+
+## Climate Concern
+
+> "I am deeply concerned about climate change."
+
+
 
 ## Climate change concern: political conservativism between 
 
@@ -296,11 +445,18 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(2.5,8))) # USE # USE # USE# USE
 ```
 
-## Table of Religion & Climate Concern Trend
+## Religion & Climate Concern| Table
 
 ```{r cc2_rT,cache = TRUE}
 tab_model(cc2_r, show.r2 = FALSE )
 ```
+
+
+## Climate Efficacy Beliefs 
+
+- "By taking personal action I believe I can make a positive difference to environmental problems."
+
+- "I feel I can make a difference to the state of the environment"
 
 ## Climate change efficacy beliefs: political conservativism between 
 
@@ -311,11 +467,7 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(4,6)))
 ```
 
-## Climate Efficacy Beliefs 
 
-- "By taking personal action I believe I can make a positive difference to environmental problems."
-
-- "I feel I can make a difference to the state of the environment"
 
 ## Climate change efficacy beliefs: political conservativism within 
 
@@ -412,13 +564,15 @@ tab_model(es_r, show.r2 = FALSE)
 
 ## Thanks to
 
-- Dom Johnson, Oxford University
+- Dom Johnson, Oxford University for the idea
 
-- Chris G Sibley, Univerisity of Auckland
+- Chris G Sibley, University of Auckland for leading the NZAVS
 
-- Templeton Religion Trust Grant 0196
+- Templeton Religion Trust Grant 0196 for the support
 
-- You for your attention.
+- *You* for your attention.
+
+- comments to joseph.bulbulia@vuw.ac.nz
 
 ## 
 
