@@ -4,7 +4,7 @@ source("funs.R") # custom functions for analysis
 
 # read data
 d <- data_read()
-
+summary(d$Wave)
 # take longitudinal cases (i.e more than one response)
 dom <- data_take_longitudinal_cases( d )
 

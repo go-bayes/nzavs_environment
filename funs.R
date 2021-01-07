@@ -11,7 +11,8 @@ data_take_longitudinal_cases <- function(df){
     dplyr::filter(YearMeasured==1)%>%
     dplyr::group_by(Id) %>% filter(n() > 1)%>%
     dplyr::filter(n() !=0)%>%
-    dplyr::ungroup(Id)
+    dplyr::ungroup(Id)%>%
+    dplyr::mutate(PoliticalConservativism = Pol.Orient)
   return(out)
 }
 
