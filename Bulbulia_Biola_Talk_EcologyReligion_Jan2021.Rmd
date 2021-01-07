@@ -151,7 +151,7 @@ es_r <-
 ```
 
 
-## What is the New Zealand Attitudes and Values Study (NZAVS)
+## The New Zealand Attitudes and Values Study
 
   - Planned 20-year longitudinal study, currently in its 11$^{th}$ year.
     
@@ -163,11 +163,11 @@ es_r <-
     
   - Focus on personality, social attitudes, values, religion, adult character development, identity, employment, experiences of discrimination, well-being and health, and environmental attitudes ...
     
-  - Current sample contains >42,000 unique people, or 1.45% of the adult NZ population.
+  - Current sample contains > 42,000 unique people, or 1.45% of the adult NZ population.
     
-  - Here, we draw on N = 26,790 longitudinal participants who responded to two or more waves from 2009 -- 2018
+  - Here, we will draw on repsonses from *N* = 26,790 longitudinal participants who responded to two or more waves from 2009 -- 2018
 
-## Histogram of Responses{data-background=NZAVSHISTOGRAM.png data-background-size=cover
+## Histogram of Responses{data-background=NZAVSHISTOGRAM.png data-background-size=cover}
 
 
 ## We investigate
@@ -180,7 +180,7 @@ es_r <-
   
   4. Sacrificial Behaviour for the Environment 
 
-## Model Form {.footnotesize}
+## Model: within + between person dynamics {.footnotesize}
 
 ```{r, include =FALSE, cache = TRUE}
 # for mod equation
@@ -566,7 +566,7 @@ tab_model(es_r, show.r2 = FALSE)
 
 - Dom Johnson, Oxford University for the idea
 
-- Chris G Sibley, University of Auckland for leading the NZAVS
+- Chris G Sibley, University of Auckland for leading the NZAVS + the 40 - 60 people working to keep it going.
 
 - Templeton Religion Trust Grant 0196 for the support
 
