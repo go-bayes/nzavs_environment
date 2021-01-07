@@ -126,6 +126,12 @@ es_r<- lmer(Env.SacMade ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_
     
   - Here, we draw on  $N = 26,790$ longitudinal participants who responded to two or more waves from 2009 -- 2018
 
+##
+
+```{r}
+knitr::include_graphics("NZAVSHISTOGRAM.png")
+```
+
 
 
 ## Here, we investigate
@@ -140,16 +146,16 @@ es_r<- lmer(Env.SacMade ~ yearsC *  Relid_betweenC +  Relid_within + (1 + Relid_
 
 ## Model Form {.footnotesize}
 
-```{r, include =false, cache = TRUE}
+```{r, include =FALSE, cache = TRUE}
 # for mod equation
 d2<- dom %>% 
     dplyr::mutate(
     outcome = Env.ClimateChgReal,
-    Rel_win = Relid_withinC,
+    Rel_win = Relid_within,
     Rel_betw = Relid_betweenC
     )
 eqa<- lmer(outcome ~ years *  Rel_betw +  Rel_win + (1 + Rel_betw|Id) +  (Rel_win|Id), 
-           data = dom)
+           data = d2)
 ```
 ```{r modelequation}
 equatiomatic::extract_eq(eqa, wrap = TRUE,  terms_per_line = 3)
@@ -414,7 +420,7 @@ tab_model(es_r, show.r2 = FALSE)
 
 - You for your attention.
 
-##
+## 
 
 ```{r}
 knitr::include_graphics("trtlogo.png")
