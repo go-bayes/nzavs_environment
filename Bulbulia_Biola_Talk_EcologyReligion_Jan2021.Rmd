@@ -39,6 +39,7 @@ dom$MostNZPoliciesServeGrGood <- dom$SysJust04
 dom$Religious <-
   factor(dom$Religious, labels = c("Not_Religious", "Religious"))
 
+# note not all analyes are in this study.for more analysese go to https://github.com/jacopastorius/nzavs_environment 
 table1::label(dom$Env.ClimateChgReal) <- "Climate Change Reality"
 table1::label(dom$Env.ClimateChgCause) <-"Humans Cause Climate Change"
 table1::label(dom$EnvEfficacy) <- "Human Efficacy"
