@@ -271,7 +271,7 @@ We quantitatively consider:
 ```{r cb1_p, cache = TRUE}
 plot(ggpredict(
   cb1_p,
-  terms = c( "yearsC","PoliticalConservativism_betweenC [minmax]"),
+  terms = c( "yearsC [minmax]","PoliticalConservativism_betweenC [minmax]"),
 )) + scale_y_continuous(limits= (c(3,8))) # 
 ```
 
@@ -307,7 +307,7 @@ Key points:
 ```{r cb13, cache = TRUE}
 plot(ggpredict(
   cb1_r,
-  terms = c( "yearsC","Relid_betweenC [minmax]"),
+  terms = c( "yearsC [minmax]]","Relid_betweenC [minmax]"),
 ))  + scale_y_continuous(limits= (c(3,8))) # 
 ```
 
@@ -362,7 +362,7 @@ the expected change *within* religious people is small, but steady, and it is ti
 ```{r cb21, cache = TRUE}
 plot(ggpredict(
   cb2_p,
-  terms = c( "yearsC","PoliticalConservativism_betweenC [minmax]"),
+  terms = c( "yearsC [minmax]","PoliticalConservativism_betweenC [minmax]"),
 )) + scale_y_continuous(limits= (c(3,8))) 
 ```
 
@@ -402,7 +402,7 @@ Similar story:
 ```{r cb23, cache = TRUE}
 plot(ggpredict(
   cb2_r,
-  terms = c( "yearsC","Relid_betweenC [minmax]"),
+  terms = c( "yearsC [minmax]","Relid_betweenC [minmax]"),
 ))  + scale_y_continuous(limits= (c(3,8))) 
 ```
 
@@ -465,7 +465,7 @@ We can think climate change is happening without being all too concerned about c
 ```{r cc21, cache = TRUE}
 plot(ggpredict(
   cc2_p,
-  terms = c( "yearsC","PoliticalConservativism_betweenC [minmax]"),
+  terms = c( "yearsC [minmax]","PoliticalConservativism_betweenC [minmax]"),
 )) + scale_y_continuous(limits= (c(2.5,8))) 
 ```
 
@@ -493,7 +493,7 @@ Within individuals, increasing conservativism is associated with lower climate c
 ```{r cc23, cache = TRUE}
 plot(ggpredict(
   cc2_r,
-  terms = c( "yearsC","Relid_betweenC [minmax]"),
+  terms = c( "yearsC [minmax]","Relid_betweenC [minmax]"),
 ))  + scale_y_continuous(limits= (c(2.5,8))) # USE # USE # USE# USE
 ```
 
@@ -534,7 +534,7 @@ Within individuals, increasing religious identification is associated with *slig
 ```{r ee_p1, cache = TRUE}
 plot(ggpredict(
   ee_p,
-  terms = c( "yearsC","PoliticalConservativism_betweenC [minmax]"),
+  terms = c( "yearsC [minmax]","PoliticalConservativism_betweenC [minmax]"),
 )) + scale_y_continuous(limits= (c(4,6)))
 ```
 
@@ -562,7 +562,7 @@ Within individuals, increasing conservativism is associated with diminishing eff
 ```{r ee_p3, cache = TRUE}
 plot(ggpredict(
   ee_r,
-  terms = c( "yearsC","Relid_betweenC [minmax]"),
+  terms = c( "yearsC [minmax]","Relid_betweenC [minmax]"),
 )) + scale_y_continuous(limits= (c(4,6))) #
 ```
 
@@ -607,7 +607,7 @@ Action: where the rubber (does not) meet the road and carbon is spared. Here, we
 ```{r es1, cache = TRUE}
 plot(ggpredict(
   es_p,
-  terms = c( "yearsC","PoliticalConservativism_betweenC [minmax]"),
+  terms = c( "yearsC [minmax]","PoliticalConservativism_betweenC [minmax]"),
 )) + scale_y_continuous(limits= (c(3.5,6))) #
 ```
 
@@ -634,7 +634,7 @@ Within individuals, increasing political conservativism predicts reduced environ
 ```{r es3, cache = TRUE}
 plot(ggpredict(
   es_r,
-  terms = c( "yearsC","Relid_betweenC [minmax]"),
+  terms = c( "yearsC [minmax]","Relid_betweenC [minmax]"),
 )) + scale_y_continuous(limits= (c(3.5,6))) #
 ```
 
@@ -726,3 +726,25 @@ ggdag::ggdag_adjustment_set(tidy_ggdag2, node_size = 14) +
   theme(legend.position = "bottom") + theme_dag_blank()
 ```
 
+
+
+## Extra slide|Religion Brain & Behaviour: "Retake" format
+
+```{r}
+knitr::include_graphics("RBB.png")
+```
+<div class="notes">
+The "Retake"
+
+- identify a previously published study in the bio-cultural study of religion and engage it: reanalysis or novel data, novel methods, new conceptualization
+
+- encouraged to collaborate with the authors of the previously published study
+
+-	authors of the previously published study are encouraged to submit retakes of their previously published research
+
+- invites special issue submissions in which curators will coordinate multiple analyses of the same dataset by separate teams -- what we call a “Many Takes” issue
+
+- were there is internal disagreement among authors about the conceptualization, analysis, or interpretation of a study, we will allow multiple “takes” within the same submission
+
+- our ordinary publication standards apply (inference not "p-values")
+</div>
