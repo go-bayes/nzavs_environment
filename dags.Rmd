@@ -1,0 +1,51 @@
+---
+title: "dags"
+author: "Joseph Bulbulia"
+date: "08/01/2021"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r dag, cache = TRUE}
+library(dagitty)
+library(ggdag)
+# obtain dag
+tidy_ggdag <- dagify(
+  Env ~ Rel + Pol,
+  Rel ~ Yrs,
+  Pol ~ Yrs,
+  Pol ~~ Rel,
+  Rel ~ U,
+  Pol ~ U,
+  exposure =  "Rel",
+  outcome =   "Env")%>%
+  tidy_dagitty()
+
+# graph adjustment sets
+ggdag::ggdag_adjustment_set(tidy_ggdag, node_size = 14) + 
+  theme(legend.position = "bottom") + theme_dag_blank()
+```
+
+
+
+```{r}
+dag_6.2 <- dagitty( "dag {
+A -> D
+A -> M -> D
+A <- S -> M
+S -> W -> D
+W [exposure]
+D [outcome]
+}")
+adjustmentSets( dag_6.2 , exposure="W", outcome ="D" )
+
+dag_6.2 <- tidy_dagitty(dag_6.2)
+dag_6.2
+
+ggdag::ggdag_adjustment_set(dag_6.2, node_size = 14) + 
+  theme(legend.position = "bottom") + theme_dag_blank()
+```
+

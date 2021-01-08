@@ -1,7 +1,7 @@
 # functions
 
 data_read <- function(){
-  df <-as.data.frame(readRDS("/Users/jbul716/The\ Virtues\ Project\ Dropbox/Joseph\ Bulbulia/00Bulbulia\ Pubs/2020/ldf.5"))
+  df <-as.data.frame(readRDS("~/The\ Virtues\ Project\ Dropbox/Joseph\ Bulbulia/00Bulbulia\ Pubs/2020/ldf.5"))
   return(df)
 }
 

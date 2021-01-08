@@ -66,6 +66,38 @@ dom <- dom %>%
     yearsC = scale(years, center = TRUE, scale = FALSE)  )
 ```
 
+<!-- ```{r test, include = FALSE, cache = TRUE} -->
+<!-- # testing association to assess potential confounding (see DAG in final slide) -->
+<!-- test1 <- -->
+<!--   lmer( -->
+<!--     Relid ~ yearsC *  PoliticalConservativism_betweenC + PoliticalConservativism_within +  (1 + PoliticalConservativism_betweenC | -->
+<!--                                                                                                            Id) +  (1 + PoliticalConservativism_within | Id), -->
+<!--     data = dom -->
+<!--   ) -->
+<!-- summary(test1) -->
+<!-- plot_model(test1) -->
+<!-- plot(ggpredict( -->
+<!--   test1, -->
+<!--   terms = c( "PoliticalConservativism_within [minmax]"), -->
+<!-- )) -->
+
+
+<!-- test2 <- -->
+<!--   lmer( -->
+<!--     PoliticalConservativism_between ~ Relid_betweenC +  Relid_within + (1 + Relid_betweenC | -->
+<!--                                                                        Id) +  (1  + Relid_within | Id), -->
+<!--     data = dom -->
+<!--   ) -->
+<!-- summary(test2) -->
+<!-- plot_model(test2) -->
+<!-- plot(test2) -->
+<!-- plot(ggpredict( -->
+<!--   test2, -->
+<!--   terms = c( "Relid_within [minmax]"), -->
+<!-- )) -->
+
+<!-- plot_model(lm(Relid ~ PoliticalConservativism_betweenC * yearsC, data = dom)) # yes -->
+<!-- ``` -->
 
 
 ```{r models, include = FALSE , cache = TRUE}
@@ -194,6 +226,8 @@ eqa<- lmer(outcome ~ years *  Rel_betw +  Rel_win + (1 + Rel_betw|Id) +  (1 + Re
 ```
 ```{r modelequation}
 equatiomatic::extract_eq(eqa, wrap = TRUE, mean_separate	= TRUE ) 
+remotes::install_github("datalorax/equatiomatic")
+
 ```
 
 <div class="notes">
@@ -672,24 +706,23 @@ Substantial information in this dataset and many "natural experiments" -- the de
 knitr::include_graphics("trtlogo.png")
 ```
 
-## Extra slide|Causal DAG clarifies why we don't simultaneously condition on Religion and Conservativism
+## Extra slide|Causal DAG clarifies why we don't simultaneously condition on Religion and Political Conservativism
 
 
 ```{r dag, cache = TRUE}
 library(dagitty)
 library(ggdag)
 # obtain dag
-tidy_ggdag <- dagify(
+tidy_ggdag2 <- dagify(
   Env ~ Rel + Pol,
   Rel ~ Yrs,
   Pol ~ Yrs,
-  Pol ~~ Rel,
-  exposure =  "C",
-  outcome =   "E")%>%
-  tidy_dagitty()
+  exposure =  "Rel",
+  outcome =   "Env")%>%
+  tidy_dagitty() 
 
 # graph adjustment sets
-ggdag::ggdag_adjustment_set(tidy_ggdag, node_size = 14) + 
-  theme(legend.position = "bottom") 
+ggdag::ggdag_adjustment_set(tidy_ggdag2, node_size = 14) + 
+  theme(legend.position = "bottom") + theme_dag_blank()
 ```
 
