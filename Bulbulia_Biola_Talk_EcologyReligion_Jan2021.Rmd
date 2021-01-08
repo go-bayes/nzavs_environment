@@ -167,18 +167,16 @@ es_r <-
     
   - Here, we will draw on repsonses from *N* = 26,790 longitudinal participants who responded to two or more waves from 2009 -- 2018
 
-## Histogram of Responses{data-background=NZAVSHISTOGRAM.png data-background-size=cover}
 
+## We investigate the following beliefs
 
-## We investigate
-
-  1. Climate Beliefs
+  1. Climate change: (a) is real (b) is human caused
   
-  2. Climate Concern
+  2. Climate concern
   
-  3. Beliefs my behaviour can make a difference 
+  3. Beliefs that my behaviour can make protect the environment
   
-  4. Sacrificial Behaviour for the Environment 
+  4. Sacrificial behaviour for the environment 
 
 ## Model: within + between person dynamics {.footnotesize}
 
@@ -199,13 +197,30 @@ equatiomatic::extract_eq(eqa, wrap = TRUE, mean_separate	= TRUE )
 
 <div class="notes">
 We quantitatively consider: 
-
   1. *Between Person Differences*: "How do political and religious commitments predict ecological attitudes and behaviors"; 
   2. *Time Trends*: "How are these relationships changing overtime"
   3. *Within Person Differences*: "how does change within an individual in political and religious commitments affect ecological attitudes and behaviors?"
   4. *Comparative Dynamics*: "How do these trends within/between individuals differ for political and religious commitments
-
+  5. References: Bafumi J, Gelman A. 2006. Fitting Multilevel Models When Predictors and Group Effects Correlate. In. Philadelphia, PA: Annual meeting of the American Political Science Association // Bell A, Jones K. 2015. Explaining Fixed Effects: Random Effects Modeling of Time-Series Cross-Sectional and Panel Data. Political Science Research and Methods, 3(1), 133–153. // Bell A, Fairbrother M, Jones K. 2019. Fixed and Random Effects Models: Making an Informed Choice. Quality & Quantity (53); 1051-1074 // Giesselmann M, Schmidt-Catran, AW. 2020. Interactions in fixed effects regression models. Sociological Methods & Research, 1–28. https://doi.org/10.1177/0049124120914934 // Heisig JP, Schaeffer M, Giesecke J. 2017. The Costs of Simplicity: Why Multilevel Models May Benefit from Accounting for Cross-Cluster Differences in the Effects of Controls. American Sociological Review 82 (4): 796–827. // Hoffman L. 2015. Longitudinal analysis: modeling within-person fluctuation and change. New York: Routledge
 </div>
+
+
+<!-- Bafumi J, Gelman A. 2006. Fitting Multilevel Models When Predictors and Group Effects Correlate. In. Philadelphia, PA: Annual meeting of the American Political Science Association. -->
+
+<!-- Bell A, Fairbrother M, Jones K. 2019. Fixed and Random Effects Models: Making an Informed Choice. Quality & Quantity (53); 1051-1074 -->
+
+<!-- Bell A, Jones K. 2015. Explaining Fixed Effects: Random Effects Modeling of Time-Series Cross-Sectional and Panel Data. Political Science Research and Methods, 3(1), 133–153. -->
+
+<!-- Gelman A, Hill J. 2007. Data Analysis Using Regression and Multilevel/Hierarchical Models. Analytical Methods for Social Research. Cambridge, New York: Cambridge University Press -->
+
+<!-- Giesselmann M, Schmidt-Catran, AW. 2020. Interactions in fixed effects regression models. Sociological Methods & Research, 1–28. https://doi.org/10.1177/0049124120914934 -->
+
+<!-- Heisig JP, Schaeffer M, Giesecke J. 2017. The Costs of Simplicity: Why Multilevel Models May Benefit from Accounting for Cross-Cluster Differences in the Effects of Controls. American Sociological Review 82 (4): 796–827. -->
+
+<!-- Hoffman L. 2015. Longitudinal analysis: modeling within-person fluctuation and change. New York: Routledge -->
+
+
+
 
 ## Climate Beliefs
 
@@ -226,7 +241,6 @@ plot(ggpredict(
 Key points:
 
 - Over the past decade, there has been a strong trend for increasing climate reality beliefs.
-
 - The gap between political conservatives and liberals is large, and constant (i.e. no interaction).
 
 </div>
@@ -245,7 +259,6 @@ plot(ggpredict(
 Key points:
 
 - Those who become more conservative are expected to become less believing of climate change over time.
-
 - Those who become more liberal are expected to become more believing of climate change over time.
 
 </div>
@@ -264,7 +277,6 @@ plot(ggpredict(
 Key points:
 
 - Religious people are less accepting of climate change.
-
 - Nonlinear change: the gap between highly identified religious people and secular people is  *growing*.
 
 </div>
@@ -283,9 +295,8 @@ plot(ggpredict(
 
 
 <div class="notes">
-Key points:
-
-- Those who become more religious are expected to become slighly *more* believing of climate change over time.
+Key point:
+those who become more religious are expected to become slighly *more* believing of climate change over time.
 
 </div>
 
@@ -298,9 +309,8 @@ tab_model(cb1_r, show.r2 = FALSE )
 
 
 <div class="notes">
-Key points:
-
-- The expected change *within* religious people is small, but steady, and it is tilting in the *opposite* direction to the between-individual trend. 
+Key point:
+the expected change *within* religious people is small, but steady, and it is tilting in the *opposite* direction to the between-individual trend. 
 
 </div>
 
@@ -321,11 +331,10 @@ plot(ggpredict(
 
 
 <div class="notes">
-similar story: 
+Similar story: 
 
-- Over the past decade, there has been a strong trend for increasing human caused climate reality beliefs
-
-- the gap between political conservatives and liberals is large, and constant (i.e. no interaction)
+- Over the past decade, there has been a strong trend for increasing human-caused climate reality beliefs
+- The gap between political conservatives and liberals is large, and constant (i.e. no interaction)
 
 </div>
 
@@ -341,11 +350,10 @@ plot(ggpredict(
 ```
 
 <div class="notes">
-Similar story 
+Similar story: 
 
-- Those who become more conservative are expected to become less believing of human caused climate change over time.
-
-- Those who become more liberal are expected to become more believing of human caused climate change over time.
+- Those who become more conservative are expected to become less believing of human-caused climate change over time.
+- Those who become more liberal are expected to become more believing of human-caused climate change over time.
 
 </div>
 
@@ -363,8 +371,7 @@ plot(ggpredict(
 <div class="notes">
 Similar story:
 
-- Religious people are less accepting of human caused climate change.
-
+- Religious people are less accepting of human-caused climate change.
 - Nonlinear trend: the gap between highly identified religious people and secular people is  *growing*.
 
 </div>
@@ -384,7 +391,8 @@ plot(ggpredict(
 
 <div class="notes">
 Similar Story:
-Those who become more religious are expected to become slighly *more* believing of climate change over time.
+
+Those who become more religious are expected to become slighly *more* believing of human-caused climate change over time.
 
 </div>
 
@@ -397,7 +405,9 @@ tab_model(cb2_r, show.r2 = FALSE )
 
 <div class="notes">
 
-Similar story: the expected change *within* religious people is small, but steady, and it is tilting in the *opposite* direction to the between-individual trend. 
+Similar story: 
+
+The expected change *within* religious people is small, but steady, and it is tilting in the *opposite* direction to the between-individual trend for human-caused climate beliefs. 
 
 </div>
 
@@ -407,9 +417,12 @@ Similar story: the expected change *within* religious people is small, but stead
 
 > "I am deeply concerned about climate change."
 
+<div class="notes">
+We can think climate change is happening without being all too concerned about climate change.
+</div>
 
 
-## Climate change concern: political conservativism between 
+## Climate change concern| political conservativism between 
 
 ```{r cc21, cache = TRUE}
 plot(ggpredict(
@@ -418,7 +431,12 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(2.5,8))) 
 ```
 
-## Climate change is concern: political conservativism within 
+<div class="notes">
+During the past ten years there has been a strong increase in concern about climate change, with a similar gap dividing liberals and conservatives
+</div>
+
+
+## Climate change is concern| political conservativism within 
 
 ```{r cc22, cache = TRUE}
 plot(ggpredict(
@@ -427,7 +445,12 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(2.5,8))) # USE # USE # USE# USE
 ```
 
-## Climate change is concern: religious identification between 
+<div class="notes">
+Within individuals, increasing conservativism is associated with lower climate concern; the opposite holds for decreasing conservativism. 
+</div>
+
+
+## Climate change is concern| religious identification between 
 
 ```{r cc23, cache = TRUE}
 plot(ggpredict(
@@ -436,7 +459,11 @@ plot(ggpredict(
 ))  + scale_y_continuous(limits= (c(2.5,8))) # USE # USE # USE# USE
 ```
 
-## Climate change is concern: religious identification within 
+<div class="notes">
+Highly religiously identified people people and secular people were less divided about climate concern ten years ago, however; despite increasing concern across the population, this gap is growing. 
+</div>
+
+## Climate change is concern| religious identification within 
 
 ```{r cc2T, cache = TRUE}
 plot(ggpredict(
@@ -445,18 +472,24 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(2.5,8))) # USE # USE # USE# USE
 ```
 
-## Religion & Climate Concern| Table
+<div class="notes">
+Within individuals, increasing religious identification is associated with *slightly greater* climate concern; the opposite holds for decreasing religious identification. In this respect, religious change within individual differs from political change within individuals.
+</div>
 
-```{r cc2_rT,cache = TRUE}
-tab_model(cc2_r, show.r2 = FALSE )
-```
+<!-- ## Religion & Climate Concern| Table -->
 
+<!-- ```{r cc2_rT,cache = TRUE} -->
+<!-- tab_model(cc2_r, show.r2 = FALSE ) -->
+<!-- ``` -->
+<!-- <div class="notes"> -->
+<!-- Here's the table. -->
+<!-- </div> -->
 
 ## Climate Efficacy Beliefs 
 
-- "By taking personal action I believe I can make a positive difference to environmental problems."
+"By taking personal action I believe I can make a positive difference to environmental problems."
 
-- "I feel I can make a difference to the state of the environment"
+"I feel I can make a difference to the state of the environment"
 
 ## Climate change efficacy beliefs: political conservativism between 
 
@@ -467,9 +500,11 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(4,6)))
 ```
 
+<div class="notes">
+Environmental efficacy beliefs are growing, but at a slower rate; there is slightly stronger growth in environmental efficacy beliefs among political conservatives, with a slower rate of growth among political liberals. 
+</div>
 
-
-## Climate change efficacy beliefs: political conservativism within 
+## Climate change efficacy beliefs| political conservativism within 
 
 ```{r ee_p2, cache = TRUE}
 plot(ggpredict(
@@ -478,7 +513,13 @@ plot(ggpredict(
 ))  + scale_y_continuous(limits= (c(4,6))) #
 ```
 
-## Climate change efficacy beliefs: religious identification between 
+<div class="notes">
+Within individuals, increasing conservativism is associated with diminishing efficacy belief; increasing liberalism is associated with greater efficacy beliefs.
+</div>
+
+
+
+## Climate change efficacy beliefs| religious identification between 
 
 ```{r ee_p3, cache = TRUE}
 plot(ggpredict(
@@ -487,7 +528,12 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(4,6))) #
 ```
 
-## Climate change efficacy beliefs: religious identification within 
+<div class="notes">
+Note that highly identified religious people remain *more confident that their behaviors can make a difference* to help the environment.  Between individuals, highly religious people have been stable in their efficacy beliefs; secular people have become somewhat more confident that their behaviors can make a positive difference to the environment.
+</div>
+
+
+## Climate change efficacy beliefs| religious identification within 
 
 ```{r ee_p4, cache = TRUE}
 plot(ggpredict(
@@ -496,19 +542,30 @@ plot(ggpredict(
 ))  + scale_y_continuous(limits= (c(4,6))) #
 ```
 
-## Table of Religion & Climate Change Efficacy Beliefs
+<div class="notes">
+Within individuals, increasing religious identification is associated with greater environmental efficacy belief; decreasing religious identification predicts lower environmental efficacy beliefs.
+</div>
 
-```{r ee_T,cache = TRUE}
-tab_model(cc2_r , show.r2 = FALSE )
-```
+
+<!-- ## Table of Religion & Climate Change Efficacy Beliefs -->
+
+<!-- ```{r ee_T,cache = TRUE} -->
+<!-- tab_model(cc2_r , show.r2 = FALSE ) -->
+<!-- ``` -->
 
 ## Climate sacrifice behaviours
 
 > "Have you made sacrifices to your standard of living (e.g., accepted higher prices, driven less, conserved energy) in order to protect the environment?"
 
+<div class="notes">
+Action: where the rubber (does not) meet the road and carbon is spared. Here, we're just looking at reported action, but there many other indicators to consider.
 
+- See our variables at in the second link (the spreadsheet) at: https://www.psych.auckland.ac.nz/en/about/new-zealand-attitudes-and-values-study/nzavs-tech-docs.html
 
-## Climate sacrifice behaviours: political conservativism between 
+- More analyses at: https://github.com/jacopastorius/nzavs_environment
+</div>
+
+## Climate sacrifice behaviours| political conservativism between 
 
 ```{r es1, cache = TRUE}
 plot(ggpredict(
@@ -517,8 +574,11 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(3.5,6))) #
 ```
 
+<div class="notes">
+Alarmingly there is *growing division* in climate behaviours among political conservatives and liberals.
+</div>
 
-## Climate change efficacy beliefs: political conservativism within 
+## Climate change efficacy beliefs| political conservativism within 
 
 ```{r es2, cache = TRUE}
 plot(ggpredict(
@@ -527,7 +587,12 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(3.5,6))) #
 ```
 
-## Climate sacrifice behaviours: religious identification between 
+<div class="notes">
+Within individuals, increasing political conservativism predicts reduced environmental action; decreasing political conservativsm predicts greater environmental action.
+</div>
+
+
+## Climate sacrifice behaviours| religious identification between 
 
 ```{r es3, cache = TRUE}
 plot(ggpredict(
@@ -536,7 +601,13 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(3.5,6))) #
 ```
 
-##  Climate sacrifice behaviours: religious identification within 
+<div class="notes">
+Highly religious individuals used to report greater environmental action, however, over the past ten years the trend shows reversal, with secular people no expected to report greater environmental action than highly religious people.
+</div>
+
+
+
+##  Climate sacrifice behaviours| religious identification within 
 
 ```{r es4, cache = TRUE}
 plot(ggpredict(
@@ -545,39 +616,57 @@ plot(ggpredict(
 )) + scale_y_continuous(limits= (c(3.5,6))) #
 ```
 
-## Table of Religion & Climate Climate Sacrifice Behaviours:
 
-```{r esT,cache = TRUE}
-tab_model(es_r, show.r2 = FALSE)
-```
+<div class="notes">
+Within individuals, increasing religious identification predicts *greater* environmental action; decreasing religious identification predicts *reduced* environmental action. 
+</div>
+
+
+
+<!-- ## Table of Religion & Climate Climate Sacrifice Behaviours: -->
+
+<!-- ```{r esT,cache = TRUE} -->
+<!-- tab_model(es_r, show.r2 = FALSE) -->
+<!-- ``` -->
+
+
+
+## Histogram of Responses{data-background=NZAVSHISTOGRAM.png data-background-size=cover}
+<div class="notes">
+Substantial information in this dataset and many "natural experiments" -- the devastating Christchurch and Kaikoura earthquakes; the Christchurch mosque shootings; the COVID-19 lockdowns and recovery; several Rugby cup wins and losses; political changes ...  also many events within people -- birth, death, illness, recovery, retirement ...  We'd love to collaborate with you. Please get in touch.
+</div>
 
 ## Summary and Questions
 
--  Compared with a decade ago, New Zealanders are substantially (1) more aware (2) more concerned about climate change.
+-  Compared with a decade ago, New Zealanders are substantially (1) more aware (2) more believing of and concerned about climate change.
 
--  Sacrificial behaviours have been slow to follow this concern
+-  Sacrificial behaviour has been slow to follow this increasing concern.
 
--  Question: though less believing of and concerned about climate change, religious people think they can make a difference: **can we tap this potential?**
+-  Those who become more conservativism are expected to present relatively *lower environmental beliefs, concerns, and behaviors*, whereas those who become less conservative are expected to present relatively *greater environmental beliefs, concerns, and behaviors*.
 
--  Question:  Any hypotheses for the why the within_religious trend differs from  the between_religious trend?
+-  Those who become more religiously identified are expected to present relatively *greater environmental beliefs, concerns, and behaviors*. whereas those who become less religiously identified are expected to *lower environmental beliefs, concerns, and behaviors* 
+
+-  Beware of ecological fallacies! Between-person change is *not* the same as within-person change!
+
+-  Question for my fellow IRPSIANS: what are some hypotheses to explain why increasing religious identification should be associated with greater environmental awareness/behavior? 
 
 
 ## Thanks to
 
-- Dom Johnson, Oxford University for the idea
+- Dom Johnson, Oxford University, for the idea to look at the social consequences of religion and ecology. 
 
-- Chris G Sibley, University of Auckland for leading the NZAVS + the 40 - 60 people working to keep it going.
+- Chris G Sibley, University of Auckland for leading the NZAVS. 
 
-- Templeton Religion Trust Grant 0196 for the support
+- The 40 - 60 NZAVS collaborators working to keep the study going, including *Donnie Davis* (virtue project co-leader), Daryl Van Tongeren & Ev Worthington (collaborators).
 
-- *You* for your attention.
+- Templeton Religion Trust Grant 0196 for their financial support
 
-- comments to joseph.bulbulia@vuw.ac.nz
+- *You* for your attention and interest
+
+- comments/interest to joseph.bulbulia@vuw.ac.nz  (more analyses at: https://github.com/jacopastorius/nzavs_environment)
 
 ## 
 
 ```{r}
 knitr::include_graphics("trtlogo.png")
 ```
-
-
