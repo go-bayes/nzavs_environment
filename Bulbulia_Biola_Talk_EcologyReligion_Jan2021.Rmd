@@ -1,5 +1,5 @@
 ---
-title: A national longitudinal study of religion of religion and climate beliefs/behaviours
+title: A national longitudinal study of religion and climate beliefs/behaviours
   | New Zealand
 author: "Joseph Bulbulia"
 date: "Biola Jan 9 2021"
@@ -633,26 +633,24 @@ Within individuals, increasing religious identification predicts *greater* envir
 <!-- ``` -->
 
 
-
-## Histogram of Responses{data-background=NZAVSHISTOGRAM.png data-background-size=cover}
-<div class="notes">
-Substantial information in this dataset and many "natural experiments" -- the devastating Christchurch and Kaikoura earthquakes; the Christchurch mosque shootings; the COVID-19 lockdowns and recovery; several Rugby cup wins and losses; political changes ...  also many events within people -- birth, death, illness, recovery, retirement ...  We'd love to collaborate with you. Please get in touch.
-</div>
-
 ## Summary and Questions
 
 -  Compared with a decade ago, New Zealanders are substantially (1) more aware (2) more believing of and concerned about climate change.
 
 -  Sacrificial behaviour has been slow to follow this increasing concern.
 
--  Those who become more conservativism are expected to present relatively *lower environmental beliefs, concerns, and behaviors*, whereas those who become less conservative are expected to present relatively *greater environmental beliefs, concerns, and behaviors*.
+-  Those who become more conservativism are expected to present relatively *diminished environmental beliefs, concerns, and behaviors*, whereas those who become less conservative are expected to present relatively *greater environmental beliefs, concerns, and behaviors*.
 
--  Those who become more religiously identified are expected to present relatively *greater environmental beliefs, concerns, and behaviors*. whereas those who become less religiously identified are expected to *lower environmental beliefs, concerns, and behaviors* 
+-  Those who become more religiously identified are expected to present relatively *greater environmental beliefs, concerns, and behaviors*, whereas those who become less religiously identified are expected to present relatively *diminished environmental beliefs, concerns, and behaviors* 
 
 -  Beware of ecological fallacies! Between-person change is *not* the same as within-person change!
 
--  Question for my fellow IRPSIANS: what are some hypotheses to explain why increasing religious identification should be associated with greater environmental awareness/behavior? 
+-  Question for my fellow IRPSIANS: what are hypotheses might explain why increasing religious identification predicts greater environmental awareness/behavior? 
 
+## Histogram of Responses{data-background=NZAVSHISTOGRAM.png data-background-size=cover}
+<div class="notes">
+Substantial information in this dataset and many "natural experiments" -- the devastating Christchurch and Kaikoura earthquakes; the Christchurch mosque shootings; the COVID-19 lockdowns and recovery; several Rugby cup wins and losses; political changes ...  also many events within people -- birth, death, illness, recovery, retirement ...  We'd love to collaborate with you. Please get in touch.
+</div>
 
 ## Thanks to
 
@@ -673,3 +671,25 @@ Substantial information in this dataset and many "natural experiments" -- the de
 ```{r}
 knitr::include_graphics("trtlogo.png")
 ```
+
+## Extra slide|Causal DAG clarifies why we don't simultaneously condition on Religion and Conservativism
+
+
+```{r dag, cache = TRUE}
+library(dagitty)
+library(ggdag)
+# obtain dag
+tidy_ggdag <- dagify(
+  Env ~ Rel + Pol,
+  Rel ~ Yrs,
+  Pol ~ Yrs,
+  Pol ~~ Rel,
+  exposure =  "C",
+  outcome =   "E")%>%
+  tidy_dagitty()
+
+# graph adjustment sets
+ggdag::ggdag_adjustment_set(tidy_ggdag, node_size = 14) + 
+  theme(legend.position = "bottom") 
+```
+
