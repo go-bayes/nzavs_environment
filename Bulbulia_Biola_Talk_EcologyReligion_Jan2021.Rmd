@@ -100,6 +100,39 @@ dom <- dom %>%
 <!-- ``` -->
 
 
+```{r lpa, cache = TRUE, include = FALSE}
+library("tidyLPA")
+library("tidyverse")
+ts <- dom %>% 
+  dplyr::filter(YearMeasured == 1) %>%
+  dplyr::filter( Wave == 2018 )
+
+fit <- ts %>%
+  dplyr::select(Env.SatNZEnvironment,
+                Env.ClimateChgConcern,
+                Your_Future_Security,
+                Env.SatNZEnvironment,
+                PoliticalConservativism ,
+                Relid) %>%
+  scale() %>%
+  tidyLPA::single_imputation() %>%
+  tidyLPA::estimate_profiles(5)
+
+tidyLPA::plot_profiles( fit , add_line = T )
+```
+
+```{r, include = FALSE}
+out <- tidyLPA::get_data( fit )
+
+ts$Class <- out$Class
+ts %>%
+  dplyr::select(Class) %>% 
+  dplyr::group_by(Class) %>%
+  dplyr::summarise (n=n()) %>%
+  dplyr::mutate(rel.freq = paste0(round(100 * n/sum(n), 0), "%"))
+```
+
+
 ```{r models, include = FALSE , cache = TRUE}
 
 # # initial analysis
