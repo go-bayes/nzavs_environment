@@ -259,8 +259,6 @@ eqa<- lmer(outcome ~ years *  Rel_betw +  Rel_win + (1 + Rel_betw|Id) +  (1 + Re
 ```
 ```{r modelequation}
 equatiomatic::extract_eq(eqa, wrap = TRUE, mean_separate	= TRUE ) 
-remotes::install_github("datalorax/equatiomatic")
-
 ```
 
 <div class="notes">
@@ -298,7 +296,7 @@ We quantitatively consider:
 "Climate change is real."
 
 
-## Climate change reality|  conservativism between: strong upward trend with large political divisions 
+## Climate change reality|  conservativism between
 
 
 ```{r cb1_p, cache = TRUE}
@@ -316,7 +314,7 @@ Key points:
 
 </div>
 
-## Climate change reality| political conservativism within moves in the same direction 
+## Climate change reality| political conservativism within
 
 ```{r cb12, cache = TRUE}
 plot(ggpredict(
@@ -335,7 +333,7 @@ Key points:
 </div>
 
 
-## Climate change reality| religious identification between trend shows nonlinear differentiation
+## Climate change reality| religious identification between 
 
 ```{r cb13, cache = TRUE}
 plot(ggpredict(
@@ -355,7 +353,7 @@ Key points:
 
 
 
-## Climate change reality| religious identification within moves against the between group trend
+## Climate change reality| religious identification within
 
 ```{r cb14, cache = TRUE}
 plot(ggpredict(
@@ -390,8 +388,7 @@ the expected change *within* religious people is small, but steady, and it is ti
 
 > "Climate change is caused by humans."
 
-## Human-caused climate change | political conservativism between = similar story 
-
+## Human-caused climate change | political conservativism between 
 ```{r cb21, cache = TRUE}
 plot(ggpredict(
   cb2_p,
@@ -411,7 +408,7 @@ Similar story:
 
 
 
-##  Human-caused climate change | political conservativism within = similar story 
+##  Human-caused climate change | political conservativism within
 
 ```{r cb22, cache = TRUE}
 plot(ggpredict(
@@ -430,7 +427,7 @@ Similar story:
 
 
 
-##  Human-caused climate change| religious identification between = similar story 
+##  Human-caused climate change| religious identification between 
 
 ```{r cb23, cache = TRUE}
 plot(ggpredict(
@@ -450,7 +447,7 @@ Similar story:
 
 
 
-## Human-caused climate change| religious identification within = similar story 
+## Human-caused climate change| religious identification within
 
 ```{r cb2T4, cache = TRUE}
 plot(ggpredict(
@@ -648,7 +645,7 @@ plot(ggpredict(
 Alarmingly there is *growing division* in climate behaviours among political conservatives and liberals.
 </div>
 
-## Climate change efficacy beliefs| political conservativism within 
+## Climate sacrifice behaviours| political conservativism within 
 
 ```{r es2, cache = TRUE}
 plot(ggpredict(
