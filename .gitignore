@@ -6,3 +6,14 @@
 *_cache/
 *.html
 *_files/
+
+/.quarto/
+
+
+# data_raw
+data_raw/*
+docs/*
+mods/*
+figs/*
+hmm_mods/*
+#scripts/*
