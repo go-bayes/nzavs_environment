@@ -14,13 +14,15 @@ conflict_prefer("cbind", "base")
 # set paths for pushing files (off of github)  ## for jb only
 push_mods <- fs::path_expand("~/The\ Virtues\ Project\ Dropbox/outcomewide/mods")
 push_figs <- fs::path_expand("~/Users/joseph/The\ Virtues\ Project\ Dropbox/outcomewide/figs")
+pull_path <- fs::path_expand("~/The\ Virtues\ Project\ Dropbox/Joseph\ Bulbulia/00Bulbulia\ Pubs/2021/DATA/ldf.5")
 
 
-# bella and amy just create foldes in your directory that are called:
-# push_mods
-# push_figs
+# read data
 
-
+read_my_data <- function(){
+   dat <- readRDS(pull_path)
+  return(dat)
+}
 
 ## function for saving
 saveh <- function(df, name) {
@@ -136,23 +138,6 @@ plot_stglm <- function(out, ylim, main, xlab, ylab) {
 #   lines(out$row, out$ui, col = "red", lty = 2)
 # }
 # function for ggplot
-
-# function for ggplot
-
-ggplot_stglm <- function(out, ylim, main, xlab, ylab, c) {
-  require(ggplot2)
-  ggplot2::ggplot(out, aes(x = row, y = est)) + geom_point() + geom_pointrange(aes(ymin =  li, ymax = ui))  +
-    scale_y_continuous(limits = ylim) +
-   # gghighlight::gghighlight(est == c, keep_scales = TRUE) +
-    labs(
-      title = main,
-      subtitle = "Marginal predictions by g-computation",
-      x = xlab,
-      y = ylab
-    ) +  theme_classic()
-}
-
-
 
 ## function for contrasts using multiply imputed data WOW
 
@@ -296,18 +281,43 @@ plot_stglm_contrast <- function(out, ylim, main, xlab, ylab) {
   lines(out$row, out$ui, col = "red", lty = 2)
 }
 
+# function for ggplot g-comp
+ggplot_stglm <- function(out, ylim, main, xlab, ylab, min, p) {
+  require(ggplot2)
+  g1 <- (out[p,])
+  g1
+  ggplot2::ggplot(out, aes(x = row, y = est)) + 
+    geom_point() + 
+    geom_pointrange(aes(ymin =  li, ymax = ui), colour = "darkgray")  +
+    scale_y_continuous(limits = ylim) +
+    labs(
+      title = main,
+      subtitle = "Marginal predictions by g-computation",
+      x = xlab,
+      y = ylab
+    ) +  
+    geom_pointrange(data=g1, aes(ymin = li, ymax = ui), colour="red") +  # highlight contrast
+    theme_classic()
+}
 
-# function for ggplot
+
+# function for ggplot contrast
 
 ggplot_stglm_contrast <- function(out, ylim, main, xlab, ylab) {
   require(ggplot2)
-  ggplot2::ggplot(out, aes(x = row, y = est)) + geom_point() + geom_pointrange(aes(ymin =  li, ymax = ui))  +
+  g1 <- subset(out[2,])  
+  ggplot2::ggplot(out, aes(x = row, y = est)) + 
+    geom_point(colour = "black") + 
+    geom_pointrange(aes(ymin =  li, ymax = ui))  +
     scale_y_continuous(limits = ylim) + labs(
       title = main,
       subtitle = "Marginal contrasts relative to baseline by g-computation",
       x = xlab,
       y = ylab
-    ) +  theme_classic()
+    ) + geom_pointrange(data=g1, aes(ymin = li, ymax = ui), colour="black") +  # highlight contrast
+    # this adds a red point
+    #geom_text(data=g1, label="Contrast", vjust=1) + # this adds a label for the red point
+    theme_classic()
 }
 
 

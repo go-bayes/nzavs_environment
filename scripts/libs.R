@@ -26,11 +26,14 @@ library("mice")
 #library("optmatch")
 #library("cmdstanr")
 library("formula.tools")
+library("CMAverse")
 library("splines") # estimation
 library("gghighlight") # highlight points
 library("parameters")
 library("naniar") # missing data
 library("conflicted")
+library("Amelia")
+library("miceadds")
 conflict_prefer("pool", "mice")
 conflict_prefer("filter", "dplyr")
 conflict_prefer("select", "dplyr")
