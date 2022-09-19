@@ -301,6 +301,24 @@ ggplot_stglm <- function(out, ylim, main, xlab, ylab, min, p) {
 }
 
 
+ggplot_stglm_nomi <- function(out, ylim, main, xlab, ylab, min, p) {
+  require(ggplot2)
+  g1 <- (out[p,])
+  g1
+  ggplot2::ggplot(out, aes(x = row, y = est)) + 
+    geom_point() + 
+    geom_pointrange(aes(ymin =  li, ymax = ui), colour = "darkgray")  +
+    scale_y_continuous(limits = ylim) +
+    labs(
+      title = main,
+      subtitle = "Marginal predictions by g-computation",
+      x = xlab,
+      y = ylab
+    ) +  
+    geom_pointrange(data=g1, aes(ymin = li, ymax = ui), colour="red") +  # highlight contrast
+    theme_classic()
+}
+
 # function for ggplot contrast
 
 ggplot_stglm_contrast <- function(out, ylim, main, xlab, ylab) {

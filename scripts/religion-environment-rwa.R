@@ -76,6 +76,7 @@ tab_in <- dat %>%
   dplyr::mutate(Religious = as.numeric(Religious)-1) %>%
   dplyr::rename(Prayer = Religion.Prayer2,
                 Scripture = Religion.Scripture2,
+                Church = Religion.Church2,
                 Env.Native.Species = Env.NATIVE.SPECIES) |> 
   dplyr::filter((Wave == 2016  & YearMeasured  == 1) |
                   (Wave == 2017  &
@@ -437,7 +438,6 @@ head(c_mice$loggedEvents, 100)
 # we create two completed data sets -- the one without the missing data will be useful for
 # determing causal contrasts -- which we'll describe below.
 
-mf <- mice::complete(c_mice, "long", inc = F)
 ml <- mice::complete(c_mice, "long", inc = TRUE)
 
 # inspect data -- what do we care about?  Note that the moderate distress category doesn't look useful
@@ -494,50 +494,6 @@ ml <- ml %>%
 
 # for models wihout looping (not advised)
 
-mf <- mf %>%
-  dplyr::mutate(Scripture_lead1_sqrt = sqrt(Scripture_lead1)) |> 
-  dplyr::mutate(Prayer_lead1_sqrt = sqrt(Prayer_lead1)) |> 
-  dplyr::mutate(Prayer_sqrt = sqrt(Prayer)) |> 
-  dplyr::mutate(Scripture_bin = if_else(Scripture > 1, 1, 0)) |> 
-  dplyr::mutate(Scripture_lead1_bin = if_else(Scripture_lead1 > 1, 1, 0)) |> 
-  dplyr::mutate(Scripture_sqrt = sqrt(Scripture)) |> 
-  dplyr::mutate(CharityDonate_log = log(CharityDonate + 1)) |> 
-  dplyr::mutate(Alcohol.Intensity_log = log(Alcohol.Intensity + 1)) |> 
-  dplyr::mutate(Hours.Exercise_log = log(Hours.Exercise+1)) |> 
-  dplyr::mutate(id = as.factor(rep(1:N, 10))) |> # needed for g-comp
-  dplyr::group_by(id) |> mutate(Env.Eff = mean(c(Env.Eff01.ActionBelief,Env.Eff02.ActionFeeling), na.rm = TRUE)) |> 
-  dplyr::group_by(id) |> mutate(Env.Eff_lead4 = mean(c(Env.Eff01.ActionBelief_lead4,Env.Eff02.ActionFeeling_lead4), na.rm = TRUE)) |>
-  dplyr::group_by(id) |> mutate(PWI = mean(
-    c(
-      Your.Future.Security,
-      Your.Personal.Relationships,
-      Your.Health,
-      Standard.Living
-    ),
-    na.rm = TRUE
-  )) |>  
-  dplyr::group_by(id) |> mutate(PWI_lead1 = mean(
-    c(
-      Your.Future.Security_lead1,
-      Your.Personal.Relationships_lead1,
-      Your.Health_lead1,
-      Standard.Living_lead1
-    ),
-    na.rm = TRUE
-  )) |> 
-  dplyr::group_by(id) |> mutate(PWI_lead2 = mean(
-    c(
-      Your.Future.Security_lead2,
-      Your.Personal.Relationships_lead2,
-      Your.Health_lead2,
-      Standard.Living_lead2
-    ),
-    na.rm = TRUE
-  )) |> 
-  ungroup() |> 
-  dplyr::mutate(across(where(is.numeric), ~ scale(.x), .names = "{col}_z")) %>%
-  select(-c(.imp_z, .id_z))
-
 #Get missing data
 miss_ml <- ml %>%
   slice(1:N)
@@ -545,10 +501,10 @@ miss_ml <- miss_ml %>% mutate_if(is.matrix, as.vector)
 miss_ml
 
 # Get data into shape
-mf <- mf %>% mutate_if(is.matrix, as.vector)
 ml <- ml %>% mutate_if(is.matrix, as.vector)
 
 ml <- mice::as.mids(ml)
+mf <- mice::complete(ml, "long", inc = F)
 
 
 
@@ -560,10 +516,6 @@ hist(log(mf$Scripture_lead1+1))
 hist(mf$Scripture_lead1_bin)
 
 
-###### READ THIS DATA IN   #########
-ml <- readh("churchl")
-mf <- readh("churchf")
-
 
 # model equations ---------------------------------------------------------
 
@@ -572,7 +524,7 @@ cvars = c("Env.Eff", "Env.ClimateChgReal", "Env.ClimateChgCause","Env.ClimateChg
 
 # General set up ----------------------------------------------------------
 
-ylim <- c(-.25,.5)
+ylim <- c(-.5,.5)
 df <-  ml
 m = 10
 

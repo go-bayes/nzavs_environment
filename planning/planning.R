@@ -1,4 +1,6 @@
 
+
+
 rm(Env.Possum.Control)
 rm(Env.RoutineMade)
 rm(Env.RoutineWilling)
@@ -36,7 +38,7 @@ Env.Eff01.T05	By taking personal action I believe I can make a positive differen
 
 
 
-# 
+#
 # Environmental attitudes and Policy
 
 
@@ -103,10 +105,10 @@ Env.Eff02.T12,
 # Env.RoutineMade.T01,
 # Env.RoutineMade.T01,
 
-    
 
 
-    
+
+
 
 # Value - Protecting the environment
 # PROTECTING THE ENVIRONMENT (preserving nature)
@@ -197,8 +199,8 @@ Env.CarbonRegs.T05,
 Env.CarbonRegs.T06,
 
 
-  
-  
+
+
 #   Environmental sacrifice norm perception
 # Do you think most New Zealanders are willing to make sacrifices to their standard of living in order to protect the environment?
 Env.SacNorms.T01,
@@ -209,7 +211,7 @@ Env.SacNorms.T05,
 Env.SacNorms.T06,
 Env.SacNorms.T09,
 
-#   Motorway Spending 
+#   Motorway Spending
 # Increased government spending on new motorways.
 Env.MotorwaySpend.T01,
 Env.MotorwaySpend.T04,
@@ -218,7 +220,7 @@ Env.MotorwaySpend.T10,
 Env.MotorwaySpend.T11,
 
 
-# Public Transport Subsidy 
+# Public Transport Subsidy
 # Government subsidy of public transport.
 Env.PubTransSubs.T01,
 Env.PubTransSubs.T04,
@@ -305,49 +307,49 @@ Env.SatNZEnvironment.T12,
 
 
 # Planning:
-# 
+#
 
-Controling in  time 8, 
-Environmental efficacy 
-Scripture 
+Controling in  time 8,
+Environmental efficacy
+Scripture
 Sat NZ env
-ALL CLIMATE BELIEFS 
+ALL CLIMATE BELIEFS
 1080
-PROTECTION NATIVE SPECIES 
+PROTECTION NATIVE SPECIES
 
 
-EXPOSURE 
-change in Scripture at 9 causes 
-RWA in TIME 11 --> 
-
-OUTCOMES 
+EXPOSURE
+change in Scripture at 9 causes
+RWA in TIME 11-->
+  
+  OUTCOMES
 Environ efficacy 12
 Sat with Environ 12
 Climate change beliefs 12
 
 
-NEXT : direct effects 
+NEXT:direct effects
 
-## 
-PROTECT  NATIVE SPECIES  11 
-1080 use 11 
+##
+PROTECT  NATIVE SPECIES  11
+1080 use 11
 
 ##
 PUBLIC SPENDING ROADS 11 (not controld)
 PUBLIC TRANSPORT 11 (not controlled)
 QUALITY WATERWAYS 11 (not controlled)
 
-## 
+##
 REPEAT WITH CHURCH Attendance & Prayer
 
 ##
 
 
-### 
-Controling for ENV norm in 5 does change in 6, 
+###
+Controling for ENV norm in 5 does change in 6,
 
 
-OUTCOMES 
+OUTCOMES
 1. Environ efficacy in 8
 2. Sat with NZ environment 8
 3. Climate change real 8
@@ -361,8 +363,8 @@ OUTCOMES
 10. Motorway 11
 11. Public transport 11
 
-## 
-Repeat with 2 x climate change is real variables 
+##
+Repeat with 2 x climate change is real variables
 
 
 
@@ -376,17 +378,23 @@ Repeat with 2 x climate change is real variables
 
 
 
-ENV efficacy 19/12  --> 12
+ENV efficacy 19 / 12--> 12
 
-SAT NZ environment -- ALL  12
+SAT NZ environment--ALL  12
 
-  
 
-## SAC NORM 
-5, 6 --> 7 / 12
+
+## SAC NORM
+5, 6--> 7 / 12
 
 
 R
 
 
-#   
+#
+
+
+
+## select vars
+
+      
