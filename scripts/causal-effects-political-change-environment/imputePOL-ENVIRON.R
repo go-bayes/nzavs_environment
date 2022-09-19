@@ -30,6 +30,7 @@ dff <- readRDS(pull_path)
 
 # Worked example selecting waves 2018 -- 2020 with exposure year as 2019
 
+
 tab_in <- dff %>%
   dplyr::mutate(Euro = if_else(EthCat == 1, 1, 0),
                 SexualOrientation = as.factor(if_else(

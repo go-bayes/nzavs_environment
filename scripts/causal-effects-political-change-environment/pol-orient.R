@@ -10,7 +10,6 @@ source("https://raw.githubusercontent.com/go-bayes/templates/main/functions/libs
 # read functions
 source("https://raw.githubusercontent.com/go-bayes/templates/main/functions/funs.R")
 
-
 conflict_prefer("pool", "mice")
 conflict_prefer("cbind", "base")
 # for saving models
@@ -27,17 +26,21 @@ pull_path <-
   )
 
 
+
 ###### MAKE FOLDER CALLED "data"  #########
 
 ###### MAKE FOLDER CALLED "figs"  #########
 
 ###### READ THIS DATA IN   #########
 
+here::here()
 
 
 ###############  RENAME YOUR IMPUTED DATASET  'df"
 
-df <- readh("ml_pol_orient_environ_omni_wave5")
+#df <- readh("ml_pol_orient_environ_omni_wave5")
+
+df <- readRDS(here::here("/Users/bulbuljo/The\ Virtues\ Project\ Dropbox/outcomewide/mods/ml_environ_omni_wave5"))
 
 #df<- data_imputed
 
@@ -82,7 +85,7 @@ X = "Pol.Orient_lead1_z"
 xlab = "Pol.Orient_lead1_z"  ## Weekly hours devided by 10
 
 
-# SET THE RANGE OF WORK HOURS FROM ZERO TO 80
+# SET THE RANGE for our natural experiment (here from -1 pol.orient to 1)
 min = -1
 max =  1
 
