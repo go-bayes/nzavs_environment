@@ -355,6 +355,7 @@ saveh(mice_cc, "pol_orient_environ_omni_wave5")
 
 mice_cc <- readh("pol_orient_environ_omni_wave5")
 
+
 # check your mice model
 outlist2 <-
   row.names(mice_cc)[mice_cc$outflux < 0.5]
@@ -364,7 +365,6 @@ length(outlist2)
 head(mice_cc$loggedEvents, 10)
 
 # read your mice model
-#mice_cc<- readRDS(here::here("data", "mice_imputed")
 
 # we create two completed data sets -- the one without the missing data will be useful for
 # determing causal contrasts -- which we'll describe below.
