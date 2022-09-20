@@ -765,8 +765,13 @@ data_ml <- tab_in |>
 
 
 
-table1::table1( ~ KESSLER6sum_z + EthCat + SexualOrientation + Gender3 |
+table1::table1( ~ Env.SatNZEnvironment_z + EthCat + SexualOrientation + Gender3 |
                   Wave, data = data_ml)
 
 
 saveRDS(data_ml, here::here("data", "data_ml"))
+
+
+
+
+

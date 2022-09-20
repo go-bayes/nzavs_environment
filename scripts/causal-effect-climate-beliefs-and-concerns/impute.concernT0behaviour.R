@@ -489,27 +489,27 @@ df_crr <- df_cr |> dplyr::group_by(Id) |> mutate(PWI = mean(
 df_crr$Male <- factor(df_cr$Male, labels = c("No", "Yes"))
 df_crr$EthCat <-
   factor(df_cr$EthCat, labels = c("Euro", "Maori", "Pacific", "Asian"))
-df_crt$Believe.Spirit <-
-  factor(df_cr$Believe.Spirit, labels = c("No", "Yes"))
-df_crt$Believe.God <-
-  factor(df_cr$Believe.God, labels = c("No", "Yes"))
-df_crt$Employed <-
+#df_crr$Believe.Spirit <-
+#   factor(df_cr$Believe.Spirit, labels = c("No", "Yes"))
+# df_crt$Believe.God <-
+#   factor(df_cr$Believe.God, labels = c("No", "Yes"))
+df_crr$Employed <-
   factor(df_cr$Employed, labels = c("No", "Yes"))
-df_crt$Volunteers <-
-  factor(df_crt$Volunteers, labels = c("No", "Yes"))
-df_crt$Parent <- factor(df_cr$Parent, labels = c("No", "Yes"))
-df_crt$Partner <-
+df_crr$Volunteers <-
+  factor(df_crr$Volunteers, labels = c("No", "Yes"))
+df_crr$Parent <- factor(df_cr$Parent, labels = c("No", "Yes"))
+df_crr$Partner <-
   factor(df_cr$Partner, labels = c("No", "Yes"))
-df_crt$Retired <-
-  factor(df_cr$retired, labels = c("No", "Yes"))
-df_crt$SemiRetired <-
-  factor(df_cr$semiretired, labels = c("No", "Yes"))
-df_crt$Urban <- factor(df_cr$Urban, labels = c("No", "Yes"))
-df_crt$BigDoms <-
-  factor(df_cr$BigDoms,
-         labels = c("Buddhist", "Christian", "Muslim", "TheOthers"))
-df_crt$NeighbourhoodCommunity <- df_cr$community
-df_crt$MajorDenominations <- df_cr$BigDoms
+# df_crr$Retired <-
+#   factor(df_cr$retired, labels = c("No", "Yes"))
+# df_crr$SemiRetired <-
+#   factor(df_cr$semiretired, labels = c("No", "Yes"))
+# df_crr$Urban <- factor(df_cr$Urban, labels = c("No", "Yes"))
+# df_crr$BigDoms <-
+#   factor(df_cr$BigDoms,
+#          labels = c("Buddhist", "Christian", "Muslim", "TheOthers"))
+# df_crr$NeighbourhoodCommunity <- df_cr$community
+# df_crr$MajorDenominations <- df_cr$BigDoms
 
 
 
@@ -707,13 +707,9 @@ data_ml <- tab_in |>
     Env.Eff02.ActionFeeling,
     Env.CarbonRegs
   ) %>%
-  dplyr::group_by(id) |> mutate(Env.Eff = mean(c(
+  dplyr::group_by(Id) |> mutate(Env.Eff = mean(c(
     Env.Eff01.ActionBelief, Env.Eff02.ActionFeeling
   ), na.rm = TRUE)) |>
-  dplyr::mutate(Env.Eff_lead4 = mean(
-    c(Env.Eff01.ActionBelief_lead4, Env.Eff02.ActionFeeling_lead4),
-    na.rm = TRUE
-  )) |>
   ungroup() |>
   dplyr::mutate(
     Volunteers = if_else(HoursCharity == 1, 1, 0),
@@ -731,7 +727,6 @@ data_ml <- tab_in |>
   dplyr::mutate(Edu = as.numeric(Edu)) %>%
   dplyr::mutate(wave = as.numeric(Wave) - 1) |>
   dplyr::mutate(income_log = log(Household.INC + 1)) |>
-  dplyr::mutate(Church = ifelse(Religion.Church > 8, 8, Religion.Church)) |>
   # dplyr::mutate( inc_prop = (income_log / (income_log_lead1) - 1)) |>
   dplyr::mutate(CharityDonate = round(CharityDonate, 0)) %>%
   dplyr::mutate(Volunteers = if_else(HoursCharity > 1, 1, 0)) |>
@@ -768,10 +763,4 @@ data_ml <- tab_in |>
 
 
 
-
-
-table1::table1( ~ KESSLER6sum_z + EthCat + SexualOrientation + Gender3 |
-                  Wave, data = data_ml)
-
-
-saveRDS(data_ml, here::here("data", "data_ml"))
+saveRDS(data_ml, here::here("data", "eco_data_ml"))
