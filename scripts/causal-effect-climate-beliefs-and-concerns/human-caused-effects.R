@@ -26,7 +26,6 @@ pull_path <-
   )
 
 
-
 ###### MAKE FOLDER CALLED "data"  #########
 
 ###### MAKE FOLDER CALLED "figs"  #########
@@ -1192,7 +1191,7 @@ h_tab |>
 
 # GRAPHS STATED VALUES ----------------------------------------------------
 
-
+#satnzenv4_p
 reflective_plots <- climateconcern4_p + 
 #  satnzenv3_p +
   satnzenv4_p +
@@ -1253,8 +1252,93 @@ ggsave(
 # save
 
 
+
+# GROWTH CURVE ------------------------------------------------------------
+
+
+
+data_ml <- readRDS(here::here("data", "data_ml"))
+library(lme4)
+
+
+## cvars remove prior outcome 
+
+cvars2 = c(
+  #"Env.ClimateChgCause", # move exposure to front 
+  "AGREEABLENESS_z",
+  "CONSCIENTIOUSNESS_z",
+  "EXTRAVERSION_z",
+  "HONESTY_HUMILITY_z",
+  "NEUROTICISM_z",
+  "OPENNESS_z",
+  "Age_z",
+  "Bodysat_z",
+  "BornNZ_z",
+  "BELONG_z",
+  "CharityDonate_log_z",
+  "ChildrenNum_z",
+  "Church_z",
+  #  "community",
+  "Edu_z",
+  "Employed_z",
+  # "Emp.JobSecure_z",
+  "EthCat",
+  "Gender3",
+  #
+  "Hours.Exercise_log_z",
+  "Hours.Work_z",
+  "HLTH.BMI_z",
+  "HLTH.Disability_z",
+  "HLTH.Fatigue_z",
+  "HLTH.SleepHours_z",
+  "income_log_z",
+  "KESSLER6sum_z",
+  "LIFESAT_z",
+  "NZdep_z",
+  "NWI_z",
+  "NZSEI13_z",
+  "Parent_z",
+  "Partner_z",
+  "Pol.Orient_z",
+  "Relid_z",
+  "Respect.Self_z",
+  # "Rumination_z",
+  "SELF.CONTROL_z",
+  "SELF.ESTEEM_z",
+  "SFHEALTH_z",
+  "Smoker_z",
+  "Standard.Living_z",
+  "SUPPORT_z",
+  "Urban_z",
+  "Volunteers_z",
+  "Your.Health_z",
+  "Your.Future.Security_z",
+  "Your.Personal.Relationships_z",
+  "Env.CarbonRegs",
+  "Env.MotorwaySpend",
+  "Env.PubTransSubs",
+  "Env.Native.Species",
+  "Env.SacNorms",
+  "Env.SacMade",
+  "Env.SacWilling",
+  "Env.RoutineMade",
+  "Env.RoutineWilling",
+  "Env.ClimateChgReal",
+  "Env.ClimateChgConcern",
+ # "Env.SatNZEnvironment", # blocked out
+  "Env.Native.Species",
+  "Env.Possum.Control",
+  "Env.Eff01.ActionBelief",
+  "Env.Eff02.ActionFeeling",
+  "Env.CarbonRegs"
 )
 
+
+f1<- as.formula(paste(
+  paste("Env.SatNZEnvironment","~", X,"+ (1|Id)"),
+  paste(cvars2,collapse = "+")))
+f1
+m0 <- lmer(f1, data =   data_ml)
 
 
 

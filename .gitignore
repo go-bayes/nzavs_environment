@@ -12,6 +12,7 @@
 
 # data_raw
 data_raw/*
+data/*
 mods/*
 figs/*
 #scripts/*

@@ -78,10 +78,10 @@ X = "Env.SacNorms_lead1_z"
 ############### NEXT SET UP VARIABLES FOR MODELS AND GRAPHS
 
 # You may set your label for your graphs  HERE WE STICK TO THE EXAMPLE OF WORK
-xlab = "Env.ClimateChgConcern_lead1_z"  ## Weekly hours devided by 10
+xlab = "Env.SacNorms_lead1_z"  ## Weekly hours devided by 10
 
 
-# SET THE RANGE OF WORK HOURS FROM ZERO TO 80
+# SET THE RANGE
 min = -1
 max =  2
 
@@ -1173,25 +1173,25 @@ out_ct <-
   )
 
 # coef + estimate
-sacrificenorms4_c <-
-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
-sacrificenorms4_c
-
-# graph
-sacrificenorms4_p <-
-  ggplot_stglm(
-    out_ct,
-    ylim = ylim,
-    main,
-    xlab,
-    ylab,
-    min = min,
-    p = p,
-    sub = sub
-  )
-
-
-sacrificenorms4_p
+# sacrificenorms4_c <-
+#   vanderweelevalue_ols(out_ct, f - min, delta, sd)
+# sacrificenorms4_c
+# 
+# # graph
+# sacrificenorms4_p <-
+#   ggplot_stglm(
+#     out_ct,
+#     ylim = ylim,
+#     main,
+#     xlab,
+#     ylab,
+#     min = min,
+#     p = p,
+#     sub = sub
+#   )
+# 
+# 
+# sacrificenorms4_p
 
 
 
@@ -1341,10 +1341,10 @@ h_tab |>
       digits = 3,
       "html") |>
   kable_styling() %>%
-  # row_spec(c(3,7:9),  # Bold out the lines where EVALUES do not cross zero or for ratios, 1
-  #          bold = T,
-  #          # color = "black",
-  #          background = "bold") |>
+  row_spec(c(3,7,8),  # Bold out the lines where EVALUES do not cross zero or for ratios, 1
+           bold = T,
+           # color = "black",
+           background = "bold") |>
   kable_minimal(full_width = F)
 
 
