@@ -379,7 +379,7 @@ skimr::skim(cc_l) |>
 
 # for keeping track of ID's in mice data
 N <- length(unique(df_cr$Id))
-
+N
 # create variables in z score
 cc_l2 <- cc_l %>%
   dplyr::mutate(id = as.factor(rep(1:N, 11))) |> # needed for g-comp

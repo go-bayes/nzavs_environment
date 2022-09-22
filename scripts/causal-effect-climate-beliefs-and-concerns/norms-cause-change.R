@@ -78,7 +78,7 @@ X = "Env.SacNorms_lead1_z"
 ############### NEXT SET UP VARIABLES FOR MODELS AND GRAPHS
 
 # You may set your label for your graphs  HERE WE STICK TO THE EXAMPLE OF WORK
-xlab = "Env.SacNorms_lead1_z"  ## Weekly hours devided by 10
+xlab = "“Do you think most New Zealanders are willing to make sacrifices\nto their standard of living in order to protect the environment? (SD)”  "  ## Weekly hours devided by 10
 
 
 # SET THE RANGE
@@ -243,6 +243,142 @@ cvars
 ################# BELOW THE MANY OUTCOMES!  ########################################
 
 
+
+
+################# BELOW THE MANY OUTCOMES!  ########################################
+
+
+# Env.ClimateChgReal_lead2_z ----------------------------------------------
+
+Y = "Env.ClimateChgReal_lead2_z"
+main = "Climate Change is real +2"
+ylab = "Climate change is real (SD)"
+sub = "Climate change is real"
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+summary(pool(out_m))
+## g-computation
+
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+out_ct
+
+real2_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+real2_c
+
+# show table
+# graph
+real2_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+
+real2_p
+
+
+
+# Env.ClimateChgReal_lead3_z ----------------------------------------------
+
+
+Y = "Env.ClimateChgReal_lead3_z"
+main = "Climate Change is real +3"
+ylab = "Climate change is real (SD)"
+sub = "Climate change is real"
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+summary(pool(out_m))
+## g-computation
+
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+out_ct
+
+real3_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+real3_c
+
+# show table
+# graph
+real3_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+
+real3_p
+
+
+# Env.ClimateChgReal_lead4_z ----------------------------------------------
+
+Y = "Env.ClimateChgReal_lead4_z"
+main = "Climate Change is real +4"
+ylab = "Climate change is real (SD)"
+sub = "Climate change is real"
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+summary(pool(out_m))
+## g-computation
+
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+out_ct
+
+real4_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+real4_c
+
+# show table
+# graph
+real4_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+
+real4_p
+
+
 #  Env.ClimateChgCause_lead2_z ------------------------------------------------------------
 Y = "Env.ClimateChgCause_lead2_z"
 main = "Climate Change is Human Caused +2"
@@ -327,7 +463,8 @@ humancaused3_p <-
   )
 
 
-#  Env.CarbonRegs_lead1_z ------------------------------------------------------------
+#  Env.ClimateChgCause_lead4_z ------------------------------------------------------------
+
 Y = "Env.ClimateChgCause_lead4_z"
 main = "Climate Change is Human Caused +4"
 ylab = "Climate Change is Human Caused (SD)"
@@ -352,29 +489,6 @@ out_ct
 humancaused4_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
 humancaused4_c
 
-# 
-# 
-# ## table for all contrasts (exploratory )
-# carbon1_t <- out_ct %>%
-#   slice(1:max) |>
-#   tibble() |>
-#   rename(
-#     Contrast = row,
-#     Estimate = est,
-#     Std_error = se,
-#     CI_hi = ui,
-#     CI_lo = li
-#   ) |>
-#   kbl(caption = main,
-#       digits = 3,
-#       "html") |>
-#   kable_styling() %>%
-#   row_spec(c(f + 1 - min),
-#            bold = T,
-#            color = "white",
-#            background = "dodgerblue") |>
-#   kable_minimal(full_width = F)
-
 # show table
 # graph
 humancaused4_p <-
@@ -388,6 +502,7 @@ humancaused4_p <-
     p = p,
     sub = sub
   )
+
 
 humancaused4_p
 
@@ -434,7 +549,7 @@ climateconcern2_p <-
     p = p,
     sub = sub
   )
-
+climateconcern2_p
 
 #  Env.ClimateChgConcern_lead3_z ------------------------------------------------------------
 Y = "Env.ClimateChgConcern_lead3_z"
@@ -521,6 +636,9 @@ climateconcern4_p <-
 
 
 climateconcern4_p
+dev.off()
+
+#  Env.CarbonRegs_lead
 
 
 #  Env.CarbonRegs_lead1_z ------------------------------------------------------------
@@ -548,30 +666,8 @@ out_ct
 carbon1_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
 carbon1_c
 
-# 
-# 
-# ## table for all contrasts (exploratory )
-# carbon1_t <- out_ct %>%
-#   slice(1:max) |>
-#   tibble() |>
-#   rename(
-#     Contrast = row,
-#     Estimate = est,
-#     Std_error = se,
-#     CI_hi = ui,
-#     CI_lo = li
-#   ) |>
-#   kbl(caption = main,
-#       digits = 3,
-#       "html") |>
-#   kable_styling() %>%
-#   row_spec(c(f + 1 - min),
-#            bold = T,
-#            color = "white",
-#            background = "dodgerblue") |>
-#   kable_minimal(full_width = F)
 
-# show table
+
 # graph
 carbon1_p <-
   ggplot_stglm(
@@ -844,6 +940,7 @@ natspecies3_p
 Y = "Env.Native.Species_lead4_z"
 main = "Protecting NZ Species +4"
 ylab = "Protecting NZ Species (SD)"
+
 sub = "Protecting New Zealand’s native\nspecies should be a national priority."
 
 # regression
@@ -1069,6 +1166,7 @@ main = "Sacrifice Willing +4"
 ylab = "Sacrifice Willing(SD)"
 sub = "Are you willing to make sacrifices to your standard of living\n(e.g., accepted higher prices, driven less,\nconserved energy) in order to protect the environment?"
 
+
 # regression
 out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
 
@@ -1112,6 +1210,7 @@ Y = "Env.SacMade_lead4_z "
 main = "Sacrifice Made +4"
 ylab = "Sacrifice Made(SD)"
 sub = "Have you made sacrifices to your standard of living\n(e.g., accepted higher prices, driven less,\nconserved energy) in order to protect the environment?"
+
 
 # regression
 out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
@@ -1173,25 +1272,25 @@ out_ct <-
   )
 
 # coef + estimate
-# sacrificenorms4_c <-
-#   vanderweelevalue_ols(out_ct, f - min, delta, sd)
-# sacrificenorms4_c
-# 
-# # graph
-# sacrificenorms4_p <-
-#   ggplot_stglm(
-#     out_ct,
-#     ylim = ylim,
-#     main,
-#     xlab,
-#     ylab,
-#     min = min,
-#     p = p,
-#     sub = sub
-#   )
-# 
-# 
-# sacrificenorms4_p
+sacrificenorms4_c <-
+  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+sacrificenorms4_c
+
+# graph
+sacrificenorms4_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+
+
+sacrificenorms4_p
 
 
 
@@ -1285,13 +1384,10 @@ publictransport5_p <-
 publictransport5_p
 
 
-
 # COMPARE TABLES  --------------------------------------------------
 main = "Comparison of Year-wise Causal Effects (Stated Environmental Attitudes) / Evalues"
+
 h_tab <- rbind(
-  humancaused2_c,
-  humancaused3_c,
-  humancaused4_c,
   climateconcern2_c,
   climateconcern3_c,
   climateconcern4_c,
@@ -1321,27 +1417,25 @@ h_tab |>
 
 # TABLE STATED ATTITUDES --------------------------------------------------
 main = "Stated Environmental Attitudes / Evalues"
-h_tab <- rbind(#satnzenv3_c,
+h_tab <- rbind(
+  real4_c,
   humancaused4_c,
   climateconcern4_c,
   satnzenv4_c,
-  #  satnzenv5_c,
-  #  natspecies3_c,
   natspecies4_c,
-  #  possum3_c,
   action4_c,
   feeling4_c,
   sacrificewilling4_c,
-  sacrificemade4_c
-#  sacrificenorms4_c
-  )
+  sacrificemade4_c#,
+ # sacrificenorms4_c
+)
 
 h_tab |>
   kbl(caption = main,
       digits = 3,
       "html") |>
-  kable_styling() %>%
-  row_spec(c(3,7,8),  # Bold out the lines where EVALUES do not cross zero or for ratios, 1
+  #kable_styling() %>%
+  row_spec(c(4,8,9),  # Bold out the lines where EVALUES do not cross zero or for ratios, 1
            bold = T,
            # color = "black",
            background = "bold") |>
@@ -1354,7 +1448,7 @@ h_tab |>
 
 main = "Revealed Environmental Attitudes / Evalues"
 h_tab <- rbind(carbon1_c,
-               possum4_c,
+               possum3_c,
                motorway5_c,
                publictransport5_c)
 
@@ -1372,22 +1466,23 @@ h_tab |>
 
 # GRAPHS STATED VALUES ----------------------------------------------------
 
-
-reflective_plots <- #satnzenv3_p +
+#satnzenv4_p
+reflective_plots <-
+  real4_p +
   humancaused4_p +
   climateconcern4_p +
+  #  satnzenv3_p +
   satnzenv4_p +
-  #satnzenv5_p +
-  #natspecies3_p +
+  #  natspecies3_p +
   natspecies4_p +
-  #possum3_p +
+  #  possum3_p +
   possum4_p +
   action4_p +
-  feeling4_p +
+  feeling4_p+
   sacrificewilling4_p +
   sacrificemade4_p +
- # sacrificenorms4_p +
-  plot_annotation(title = "Causal effects of perceived sacrificial norms in other on stated environmental values") +
+#  sacrificenorms4_p +
+  plot_annotation(title = "Causal effects of belief in human caused climate change on stated enviornmental values") +
   plot_layout(guides = 'collect')
 
 reflective_plots
@@ -1414,7 +1509,7 @@ revealed_plots <- carbon1_p +
   possum4_p +
   motorway5_p +
   publictransport5_p +
-  plot_annotation(title = "Causal effects of perceived sacrificial norms in other on revealed environmental values") +
+  plot_annotation(title = "Causal effects of belief in human caused climate change on revealed environmental values") +
   plot_layout(guides = 'collect')
 
 revealed_plots
@@ -1437,38 +1532,204 @@ ggsave(
 
 
 
+# individual plots --------------------------------------------------------
+
+# individual stated plots -----------------------------------------------
+
+  humancaused4_p
+ggsave(
+  real4_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "-2_real4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
 
 
-##
-# Confounding control variables  ---------------------------------------------------------
-# These variables can be modified depending on your model and assumptions.
-#  Here, we use vanderweele's "disjunctive cause criterion"
 
-# FROM Outcomewide longitudinal designs: https://doi.org/10.1214/19-STS728
-#" A modified disjunctive cause criterion that might thus be more useful in practice could articulated as follows (VanderWeele, 2019): control for each covari- ate that is a cause of the exposure, or of the outcome, or of both; exclude from this set any variable known to be an instrumental variable; and include as a covariate any proxy for an unmeasured variable that is a common cause of both the exposure and the outcome." p.443
 
-# TYLERS LIST,  https://doi.org/10.1214/19-STS728 p.442
-# *** Demographic
-# Race
-# Age
-# Gender
-# Marital Status
-# *** Economic, Social and Political
-# Income
-# Education
-# Employment
-# Social integration Neighborhood
-# Religious service attendance
-# Political affiliation
-### *** Health
-# Self-rated health
-# Number of health conditions
-# Exercise
-# Smoking
-# Alcohol consumption
-# Depression
-# Happiness Loneliness
-# Parental warmth Purpose/Meaning Big five personality
 
-# NOTE: WE USE MORE VARIABLES
+ggsave(
+  humancaused4_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "-1_humancaused4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+
+ggsave(
+  climateconcern4_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "0_climateconcern4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+
+ggsave(
+  satnzenv4_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "1_satnzenv4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+ggsave(
+  natspecies4_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "2_natspecies4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+ggsave(
+  action4_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "3_action4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+ggsave(
+  feeling4_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "4_feeling4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+ggsave(
+  sacrificewilling4_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "5_sacrificewilling4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+ggsave(
+  sacrificemade4_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "6_sacrificemade4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+# 
+# ggsave(
+#   sacrificenorms4_p,
+#   path = here::here(here::here("figs", "figs_norms")),
+#   width = 12.8,
+#   height = 7.2,
+#   units = "in",
+#   filename = "7_sacrificenorms4_p.jpg",
+#   device = 'jpeg',
+#   limitsize = FALSE,
+#   dpi = 600
+# )
+
+
+# individual revealed plots  ----------------------------------------------
+
+ggsave(
+  carbon1_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "8_carbon1_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+ggsave(
+  possum4_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "9_possum4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+ggsave(
+  motorway5_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "10_motorway5_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+ggsave(
+  publictransport5_p,
+  path = here::here(here::here("figs", "figs_norms")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "11_publictransport5_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
 

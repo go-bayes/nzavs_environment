@@ -1153,7 +1153,7 @@ satnzenv4_p +
 #natspecies3_p +
 natspecies4_p +
 #possum3_p +
-possum4_p +
+#possum4_p +
 action4_p +
 feeling4_p +
 sacrificewilling4_p +
@@ -1168,7 +1168,7 @@ reflective_plots
 
 ggsave(
   reflective_plots,
-  path = here::here(here::here("figs", "figs_environ_concern", "reflective_plots")),
+  path = here::here(here::here("figs", "figs_human_cause", "reflective_plots")),
   width = 16,
   height = 12,
   units = "in",
@@ -1177,6 +1177,105 @@ ggsave(
   limitsize = FALSE,
   dpi = 600
 )
+
+
+
+# individual revealed plots -----------------------------------------------
+
+ggsave(
+  satnzenv4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 16,
+  height = 12,
+  units = "in",
+  filename = "1_satnzenv4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+ggsave(
+  natspecies4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 16,
+  height = 12,
+  units = "in",
+  filename = "2_natspecies4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+ggsave(
+  action4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 16,
+  height = 12,
+  units = "in",
+  filename = "3_action4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+ggsave(
+  feeling4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 16,
+  height = 12,
+  units = "in",
+  filename = "4_feeling4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+ggsave(
+  sacrificewilling4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 16,
+  height = 12,
+  units = "in",
+  filename = "5_sacrificewilling4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+ggsave(
+  sacrificemade4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 16,
+  height = 12,
+  units = "in",
+  filename = "6_sacrificemade4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+ggsave(
+  sacrificenorms4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 16,
+  height = 12,
+  units = "in",
+  filename = "7_sacrificenorms4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+
 
 
 # REVEALED PLOTS ----------------------------------------------------------
@@ -1195,7 +1294,7 @@ revealed_plots
 
 ggsave(
   revealed_plots,
-  path = here::here(here::here("figs", "figs_environ_concern", "revealed_plots")),
+  path = here::here(here::here("figs", "figs_human_cause")),
   width = 16,
   height = 12,
   units = "in",

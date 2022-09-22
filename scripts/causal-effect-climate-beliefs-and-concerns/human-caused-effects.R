@@ -76,11 +76,11 @@ X = "Env.ClimateChgCause_lead1_z"
 ############### NEXT SET UP VARIABLES FOR MODELS AND GRAPHS
 
 # You may set your label for your graphs  HERE WE STICK TO THE EXAMPLE OF WORK
-xlab = "Env.ClimateChgCause_lead1_z"  ## Weekly hours devided by 10
+xlab = "Climate change is caused by humans (SD)"  ## Weekly hours devided by 10
 
 #Climate change is caused by humans.
 
-# SET THE RANGE OF WORK HOURS FROM ZERO TO 80
+# SET THE RANGE
 min = -2
 max =  1
 
@@ -243,8 +243,11 @@ cvars
 # Climate concern ---------------------------------------------------------
 
 
+# Climate concern ---------------------------------------------------------
+
+
 #  Env.ClimateChgConcern_lead2_z ------------------------------------------------------------
-Y = "Env.ClimateChgCause_lead2_z"
+Y = "Env.ClimateChgConcern_lead2_z"
 main = "Climate Concern +2"
 ylab = "Climate Concern (SD)"
 sub = "I am deeply concerned about climate change."
@@ -281,10 +284,10 @@ climateconcern2_p <-
     p = p,
     sub = sub
   )
-
+climateconcern2_p
 
 #  Env.ClimateChgConcern_lead3_z ------------------------------------------------------------
-Y = "Env.ClimateChgCause_lead3_z"
+Y = "Env.ClimateChgConcern_lead3_z"
 main = "Climate Concern +3"
 ylab = "Climate Concern (SD)"
 sub = "I am deeply concerned about climate change."
@@ -328,7 +331,7 @@ climateconcern3_p
 
 
 #  Env.ClimateChgConcern_lead4_z ------------------------------------------------------------
-Y = "Env.ClimateChgCause_lead4_z"
+Y = "Env.ClimateChgConcern_lead4_z"
 main = "Climate Concern +4"
 ylab = "Climate Concern (SD)"
 sub = "I am deeply concerned about climate change."
@@ -368,7 +371,9 @@ climateconcern4_p <-
 
 
 climateconcern4_p
+dev.off()
 
+#  Env.CarbonRegs_lead
 
 
 #  Env.CarbonRegs_lead1_z ------------------------------------------------------------
@@ -670,6 +675,7 @@ natspecies3_p
 Y = "Env.Native.Species_lead4_z"
 main = "Protecting NZ Species +4"
 ylab = "Protecting NZ Species (SD)"
+
 sub = "Protecting New Zealand’s native\nspecies should be a national priority."
 
 # regression
@@ -1160,10 +1166,10 @@ h_tab |>
       digits = 3,
       "html") |>
   #kable_styling() %>%
- # row_spec(c(1:5,8:11),  # Bold out the lines where EVALUES do not cross zero or for ratios, 1
- #           bold = T,
- #           # color = "black",
- #           background = "bold") |>
+  row_spec(c(1,2,4,5,6,7),  # Bold out the lines where EVALUES do not cross zero or for ratios, 1
+           bold = T,
+           # color = "black",
+           background = "bold") |>
   kable_minimal(full_width = F)
 
 
@@ -1213,7 +1219,7 @@ reflective_plots
 
 ggsave(
   reflective_plots,
-  path = here::here(here::here("figs", "figs_environ_changereal", "reflective_plots")),
+  path = here::here(here::here("figs", "figs_human_cause", "reflective_plots")),
   width = 16,
   height = 12,
   units = "in",
@@ -1240,7 +1246,7 @@ revealed_plots
 
 ggsave(
   revealed_plots,
-  path = here::here(here::here("figs", "figs_environ_changereal", "revealed_plots")),
+  path = here::here(here::here("figs", "figs_human_cause", "revealed_plots")),
   width = 16,
   height = 12,
   units = "in",
@@ -1250,6 +1256,177 @@ ggsave(
   dpi = 600
 )
 # save
+
+
+
+
+# individual plots --------------------------------------------------------
+
+# individual stated plots -----------------------------------------------
+
+ggsave(
+  climateconcern4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "0_climateconcern4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+
+ggsave(
+  satnzenv4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "1_satnzenv4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+ggsave(
+  natspecies4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "2_natspecies4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+ggsave(
+  action4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "3_action4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+ggsave(
+  feeling4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "4_feeling4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+ggsave(
+  sacrificewilling4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "5_sacrificewilling4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+ggsave(
+  sacrificemade4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "6_sacrificemade4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+ggsave(
+  sacrificenorms4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "7_sacrificenorms4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+# individual revealed plots  ----------------------------------------------
+
+ggsave(
+  carbon1_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "8_carbon1_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+ggsave(
+  possum4_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "9_possum4_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+ggsave(
+  motorway5_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "10_motorway5_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
+
+ggsave(
+  publictransport5_p,
+  path = here::here(here::here("figs", "figs_human_cause")),
+  width = 12.8,
+  height = 7.2,
+  units = "in",
+  filename = "11_publictransport5_p.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+
 
 
 

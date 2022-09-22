@@ -77,7 +77,7 @@ X = "Env.ClimateChgReal_lead1_z"
 ############### NEXT SET UP VARIABLES FOR MODELS AND GRAPHS
 
 # You may set your label for your graphs  HERE WE STICK TO THE EXAMPLE OF WORK
-xlab = "Env.ClimateChgConcern_lead1_z"  ## Weekly hours devided by 10
+xlab = "Env.ClimateChgReal_lead1_z"  ## Weekly hours devided by 10
 
 
 # SET THE RANGE OF WORK HOURS FROM ZERO TO 80

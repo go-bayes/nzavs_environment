@@ -343,7 +343,7 @@ library(mice)
 mice_cc <- df_cr %>%
   dplyr::select(-c(Wave, Id))  # won't otherwise run
 
-
+N
 
 library(naniar)
 naniar::gg_miss_var(mice_cc)
