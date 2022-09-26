@@ -373,7 +373,51 @@ climateconcern4_p <-
 climateconcern4_p
 dev.off()
 
-#  Env.CarbonRegs_lead
+# 
+# #  Env.ClimateChgConcern_lead5_z ------------------------------------------------------------
+# Y = "Env.ClimateChgConcern_lead5_z"
+# main = "Climate Concern +5"
+# ylab = "Climate Concern (SD)"
+# sub = "I am deeply concerned about climate change."
+# # regression
+# out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+# 
+# summary(pool(out_m))
+# ## g-computation
+# 
+# out_ct <-
+#   pool_stglm_contrast(
+#     out_m,
+#     df = df,
+#     m = 10,
+#     X = X,
+#     x = x,
+#     r = r
+#   )
+# out_ct
+# 
+# climateconcern5_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+# climateconcern5_c
+# 
+# # show table
+# # graph
+# climateconcern5_p <-
+#   ggplot_stglm(
+#     out_ct,
+#     ylim = ylim,
+#     main,
+#     xlab,
+#     ylab,
+#     min = min,
+#     p = p,
+#     sub = sub
+#   )
+# 
+# 
+# climateconcern5_p
+# dev.off()
+# 
+# #  Env.CarbonRegs_lead
 
 
 #  Env.CarbonRegs_lead1_z ------------------------------------------------------------
@@ -1148,7 +1192,7 @@ h_tab |>
 
 
 
-
+sacrificenorms4_c
 
 # TABLE STATED ATTITUDES --------------------------------------------------
 main = "Stated Environmental Attitudes / Evalues"
@@ -1174,7 +1218,7 @@ h_tab |>
 
 
 
-
+publictransport5_c
 # TABLE REVEALED ATTITUDES ------------------------------------------------
 
 main = "Revealed Environmental Attitudes / Evalues"

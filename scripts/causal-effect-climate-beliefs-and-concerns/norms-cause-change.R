@@ -379,6 +379,52 @@ real4_p <-
 real4_p
 
 
+
+
+# Env.ClimateChgReal_lead5_z ----------------------------------------------
+
+Y = "Env.ClimateChgReal_lead5_z"
+main = "Climate Change is real +5"
+ylab = "Climate change is real (SD)"
+sub = "Climate change is real"
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+summary(pool(out_m))
+## g-computation
+
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+out_ct
+
+real5_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+real5_c
+
+# show table
+# graph
+real5_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+
+real5_p
+
+
+
 #  Env.ClimateChgCause_lead2_z ------------------------------------------------------------
 Y = "Env.ClimateChgCause_lead2_z"
 main = "Climate Change is Human Caused +2"
@@ -503,6 +549,160 @@ humancaused4_p <-
     sub = sub
   )
 
+
+humancaused4_p
+
+
+
+
+
+
+
+#  Env.ClimateChgCause_lead2_z ------------------------------------------------------------
+Y = "Env.ClimateChgCause_lead2_z"
+main = "Climate Change is Human Caused +2"
+ylab = "Climate Change is Human Caused (SD)"
+sub = "Climate change is caused by humans"
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+summary(pool(out_m))
+## g-computation
+
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+out_ct
+
+humancaused2_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+humancaused2_c
+
+# show table
+# graph
+humancaused2_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+
+humancaused2_p
+
+
+
+
+#  Env.ClimateChgCause_lead3_z ------------------------------------------------------------
+Y = "Env.ClimateChgCause_lead3_z"
+main = "Climate Change is Human Caused +3"
+ylab = "Climate Change is Human Caused (SD)"
+sub = "Climate change is caused by humans"
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+summary(pool(out_m))
+## g-computation
+
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+out_ct
+
+humancaused3_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+humancaused3_c
+
+# show table
+# graph
+humancaused3_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+
+
+#  Env.ClimateChgCause_lead4_z ------------------------------------------------------------
+Y = "Env.ClimateChgCause_lead4_z"
+main = "Climate Change is Human Caused +4"
+ylab = "Climate Change is Human Caused (SD)"
+sub = "Climate change is caused by humans"
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+summary(pool(out_m))
+## g-computation
+
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+out_ct
+
+humancaused4_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+humancaused4_c
+
+# 
+# 
+# ## table for all contrasts (exploratory )
+# carbon1_t <- out_ct %>%
+#   slice(1:max) |>
+#   tibble() |>
+#   rename(
+#     Contrast = row,
+#     Estimate = est,
+#     Std_error = se,
+#     CI_hi = ui,
+#     CI_lo = li
+#   ) |>
+#   kbl(caption = main,
+#       digits = 3,
+#       "html") |>
+#   kable_styling() %>%
+#   row_spec(c(f + 1 - min),
+#            bold = T,
+#            color = "white",
+#            background = "dodgerblue") |>
+#   kable_minimal(full_width = F)
+
+# show table
+# graph
+humancaused4_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
 
 humancaused4_p
 
@@ -636,9 +836,107 @@ climateconcern4_p <-
 
 
 climateconcern4_p
+
 dev.off()
 
 #  Env.CarbonRegs_lead
+
+
+#  Env.ClimateChgConcern_lead4_z ------------------------------------------------------------
+Y = "Env.ClimateChgConcern_lead4_z"
+main = "Climate Concern +4"
+ylab = "Climate Concern (SD)"
+sub = "I am deeply concerned about climate change."
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+summary(pool(out_m))
+## g-computation
+
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+out_ct
+
+climateconcern4_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+climateconcern4_c
+
+# show table
+# graph
+climateconcern4_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+
+
+climateconcern4_p
+
+dev.off()
+
+#  Env.CarbonRegs_lead
+
+
+#  Env.ClimateChgConcern_lead4_z ------------------------------------------------------------
+Y = "Env.ClimateChgConcern_lead5_z"
+main = "Climate Concern +5"
+ylab = "Climate Concern (SD)"
+sub = "I am deeply concerned about climate change."
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+summary(pool(out_m))
+## g-computation
+
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+out_ct
+
+climateconcern5_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+climateconcern5_c
+
+# show table
+# graph
+climateconcern5_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+
+
+climateconcern5_p
+
+dev.off()
+
+#  Env.CarbonRegs_lead
+
+
+
 
 
 #  Env.CarbonRegs_lead1_z ------------------------------------------------------------
@@ -1413,7 +1711,7 @@ h_tab |>
 
 
 
-
+sacrificemade4_c
 
 # TABLE STATED ATTITUDES --------------------------------------------------
 main = "Stated Environmental Attitudes / Evalues"
@@ -1443,7 +1741,7 @@ h_tab |>
 
 
 
-
+publictransport5_c
 # TABLE REVEALED ATTITUDES ------------------------------------------------
 
 main = "Revealed Environmental Attitudes / Evalues"
@@ -1536,7 +1834,6 @@ ggsave(
 
 # individual stated plots -----------------------------------------------
 
-  humancaused4_p
 ggsave(
   real4_p,
   path = here::here(here::here("figs", "figs_norms")),
