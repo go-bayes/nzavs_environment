@@ -13,6 +13,7 @@ source("https://raw.githubusercontent.com/go-bayes/templates/main/functions/funs
 
 conflict_prefer("pool", "mice")
 conflict_prefer("cbind", "base")
+conflict_prefer("lag", "dplyr")
 # for saving models
 push_mods <-
   fs::path_expand("~/The\ Virtues\ Project\ Dropbox/outcomewide/mods")
@@ -26,12 +27,12 @@ pull_path <-
     "~/The\ Virtues\ Project\ Dropbox/Joseph\ Bulbulia/00Bulbulia\ Pubs/2021/DATA/ldf.5"
   )
 
-dff <- readRDS(pull_path)
+dt <- readRDS(pull_path)
 
 # Worked example selecting waves 2018 -- 2020 with exposure year as 2019
 
-
-tab_in <- dff %>%
+# A poverty of measures means that we can only work with wave 11 for now
+dt_init <- dt %>%
   dplyr::mutate(Euro = if_else(EthCat == 1, 1, 0),
                 SexualOrientation = as.factor(if_else(
                   SexualOrientationL1 == 1,
@@ -62,24 +63,20 @@ tab_in <- dff %>%
     Prayer = Religion.Prayer2,
     Scripture = Religion.Scripture2,
     Church = Religion.Church2,
-    Env.Native.Species = Env.NATIVE.SPECIES
+    Env.Native.Species = Env.NATIVE.SPECIES,
+    NeighbourhoodCommunity = SWB.SoC01
   ) |>
-  dplyr::filter((Wave == 2013  &
+ # dplyr::filter(Wave == 2019 &  YearMeasured  == 1) |> 
+  dplyr::filter((Wave == 2019 &
                    YearMeasured  == 1) |
-                  (Wave == 2014  & YearMeasured == 1) |
-                  (Wave == 2015 & YearMeasured  != -1) |
-                  (Wave == 2016 & YearMeasured  != -1) |
-                  (Wave == 2017 & YearMeasured  != -1) |
-                  (Wave == 2018 &
-                     YearMeasured  != -1)
-  )  %>% # Eligibility criteria
-  # dplyr::filter(Id != 9630) %>% # problematic for income
+                  (Wave == 2020 & YearMeasured == 1)) |>
+#  dplyr::filter(Id != 9630) %>% # problematic for income
   group_by(Id) %>%
-  dplyr::mutate(org2 = ifelse(Wave == 2014 &
+  dplyr::mutate(org2 = ifelse(Wave == 2019 &
                                 YearMeasured == 1, 1, 0)) %>%  # creating an indicator for the first wave
   dplyr::mutate(hold2 = mean(org2, na.rm = TRUE)) %>%  # Hack0
   dplyr::filter(hold2 > 0) %>% #
-  dplyr::mutate(org1 =  ifelse(Wave == 2013 &
+  dplyr::mutate(org1 =  ifelse(Wave == 2020 &
                                  YearMeasured == 1, 1, 0)) %>%  # creating an indicator for the first wave
   dplyr::mutate(hold1 = mean(org1, na.rm = TRUE)) %>%  # Hack
   dplyr::filter(hold1 > 0) %>%
@@ -87,29 +84,31 @@ tab_in <- dff %>%
   droplevels() %>%
   arrange(Id, Wave)
 
-
 # check n # 34782
-length(unique(tab_in$Id)) # 14878
+length(unique(dt_init$Id)) # 33318
 
 `# how is something changing? (Attrition of disabled people?)
 # Do you have a health condition or disability that limits you, and that has lasted for 6+ months?
 
-tab_in %>%
-  group_by(Wave) %>%
-  summarise(mean(HLTH.Disability, na.rm = TRUE))
 
-table1::table1( ~ HLTH.Disability | Wave, data = tab_in)
+dt_init %>%
+  group_by(Wave) %>%
+  summarise(mean(COVID19.Timeline, na.rm = TRUE))
+
 # select-variables  -------------------------------------------------------
-df_cr <- tab_in %>%
+dt_formice <- dt_init %>%
   select(
     Id,
     YearMeasured,
+    SCIENCE.TRUST,
+ #   COVID19.Timeline,
     Wave,
+    REGC_2018,
     Partner,
     EthCat,
     Age,
     Gender3,
-    SexualOrientation,
+   # SexualOrientation,
     NZSEI13,
     CONSCIENTIOUSNESS,
     OPENNESS,
@@ -122,31 +121,31 @@ df_cr <- tab_in %>%
     Employed,
     # HomeOwner,
     Pol.Orient,
-    SDO,
-    RWA,
+  #  SDO,
+  #  RWA,
     Urban,
     Household.INC,
     Parent,
     Relid,
-    Religious,
-    Church,
-    #  Prayer,
-    #  Scripture,
-    #   Believe.Spirit,
-    #   Believe.God,
-    #   Spiritual.Identification,
-    SWB.SoC01,
+   # Religious,
+  #  Church,
+  #  Prayer,
+  #  Scripture,
+    Believe.Spirit,
+    Believe.God,
+  #  Spiritual.Identification,
+    NeighbourhoodCommunity,
     # EmotionRegulation1,
     # EmotionRegulation2,
     # EmotionRegulation3,
     Bodysat,
-    #   VENGEFUL.RUMIN,
-    #   retired,
-    #   semiretired,
+    VENGEFUL.RUMIN,
+    retired,
+    semiretired,
     BornNZ,
     KESSLER6sum,
     HLTH.Fatigue,
-    #  Rumination,
+    Rumination,
     Smoker,
     ChildrenNum,
     NWI,
@@ -154,12 +153,12 @@ df_cr <- tab_in %>%
     SUPPORT,
     CharityDonate,
     HoursCharity,
-    #   GRATITUDE,
+    GRATITUDE,
     Hours.Work,
     HLTH.SleepHours,
     HLTH.Disability,
     Hours.Exercise,
-    #   LIFEMEANING,
+    LIFEMEANING,
     LIFESAT,
     # PWI,  ##  we use the individual
     NWI,
@@ -170,174 +169,96 @@ df_cr <- tab_in %>%
     Respect.Self,
     #  GenCohort,
     #   Emp.WorkLifeBalance,
-    #   Alcohol.Frequency,
-    #    Alcohol.Intensity,
+    Alcohol.Frequency,
+    Alcohol.Intensity,
     HLTH.BMI,
     Smoker,
     ChildrenNum,
     # GenCohort,
-    #    partnerlost_job,
-    #    lost_job,
-    #   began_relationship,
-    #    Alcohol.Intensity,
-    #    Alcohol.Frequency,
-    #   SexualSatisfaction,
-    #  POWERDEPENDENCE1,
-    #  POWERDEPENDENCE2,
+    partnerlost_job,
+    lost_job,
+    began_relationship,
+    SexualSatisfaction,
+    POWERDEPENDENCE1,
+    POWERDEPENDENCE2,
     Your.Future.Security,
     Your.Personal.Relationships,
     Your.Health,
     Standard.Living,
-    #   PERFECTIONISM,
-    #    PermeabilityIndividual,
-    #    ImpermeabilityGroup,
-    SWB.SoC01,
-    Env.CarbonRegs,
-    Env.MotorwaySpend,
-    Env.PubTransSubs,
+    PERFECTIONISM,
+    PermeabilityIndividual,
+    ImpermeabilityGroup,
+    NeighbourhoodCommunity,
+    #Env.CarbonRegs,
     Env.Native.Species,
-    Env.SacNorms,
-    Env.SacMade,
-    Env.SacWilling,
-    Env.RoutineMade,
-    Env.RoutineWilling,
-    Env.ClimateChgReal,
-    Env.ClimateChgCause,
-    Env.ClimateChgConcern,
-    Env.SatNZEnvironment,
-    Env.Native.Species,
-    Env.Possum.Control,
-    Env.Eff01.ActionBelief,
-    Env.Eff02.ActionFeeling,
-    Env.CarbonRegs
-  ) %>%
-  dplyr::mutate(Edu = as.numeric(Edu)) %>%
-  dplyr::mutate(Employed = as.numeric(Employed)) %>%
-  dplyr::mutate(
-    Volunteers = if_else(HoursCharity == 1, 1, 0),
-    # Depressed = (as.numeric(
-    #   cut(
-    #     KESSLER6sum,
-    #     breaks = c(-Inf, 13, Inf),
-    #     labels = c("0", "1"),
-    #     right = FALSE
-    #   )
-    # ) - 1),
-    # EthCat = factor(EthCat, labels = c("Euro", "Maori", "Pacific", "Asian")),
-    Church = ifelse(Church > 8, 8, Church)
-  ) %>%
-  arrange(Id, Wave)  %>% #
-  dplyr::mutate(across(
-    c(Pol.Orient,
+    # #Env.SacNorms,
+    # # Env.SacMade,
+    # # Env.SacWilling,
+    # # Env.RoutineMade,
+    # #  Env.RoutineWilling,
       Env.ClimateChgReal,
       Env.ClimateChgCause,
       Env.ClimateChgConcern,
-      Env.CarbonRegs,
-      Env.SacNorms
+      Env.SatNZEnvironment,
+      Env.MotorwaySpend,
+      Env.PubTransSubs,
+      Env.SatWaterways,
+      Env.Eff01.ActionBelief,
+      Env.Eff02.ActionFeeling,
+    ) |>
+  mutate(Edu = as.numeric(Edu)) |> 
+  mutate(Believe.God = as.numeric(Believe.God)) |> 
+  mutate(Believe.Spirit = as.numeric(Believe.Spirit)) |> 
+  arrange(Id, Wave)  |> 
+  dplyr::mutate(across(
+    c(SCIENCE.TRUST,
+      Env.ClimateChgReal,
+      Env.ClimateChgCause,
+      Env.ClimateChgConcern,
+      Env.SatNZEnvironment,
+      Env.Eff01.ActionBelief,
+      Env.Eff02.ActionFeeling,
     ),
     ~ lead(.x, n = 1),
     .names = "{col}_lead1"
   )) %>% # make leads
-  dplyr::mutate(across(
-    c(
-      Env.ClimateChgReal,
-      Env.ClimateChgCause,
-      Env.ClimateChgConcern,
-      Env.SatNZEnvironment,
-    ),
-    ~ lead(.x, n = 2),
-    .names = "{col}_lead2"
-  )) %>% # make leads
-  dplyr::mutate(across(
-    c(
-      Env.ClimateChgReal,
-      Env.ClimateChgCause,
-      Env.ClimateChgConcern,
-      Env.SatNZEnvironment,
-      Env.Native.Species,
-      Env.Possum.Control
-    ),
-    ~ lead(.x, n = 3),
-    .names = "{col}_lead3"
-  )) %>% # make leads
-  dplyr::mutate(across(
-    c(
-      Env.ClimateChgReal,
-      Env.ClimateChgCause,
-      Env.ClimateChgConcern,
-      Env.SatNZEnvironment,
-      Env.Native.Species,
-      Env.Possum.Control,
-      Env.Eff01.ActionBelief,
-      Env.Eff02.ActionFeeling,
-      Env.SacWilling,
-      Env.SacMade,
-      Env.SacNorms
-      
-    ),
-    ~ lead(.x, n = 4),
-    .names = "{col}_lead4"
-  )) %>% # make leads
-  dplyr::mutate(across(
-    c(
-      Env.SatNZEnvironment,
-      Env.MotorwaySpend,
-      Env.PubTransSubs,
-    ),
-    ~ lead(.x, n = 5),
-    .names = "{col}_lead5"
-  )) %>% # make leads
-  dplyr::filter(Wave == 2013) %>%
-  dplyr::filter(!is.na(Pol.Orient)) %>%
-  dplyr::filter(!is.na(Pol.Orient_lead1)) %>%
-  dplyr::select(-c(SWB.SoC01,
-                   HoursCharity,
-                   YearMeasured)) %>%
+  dplyr::filter(Wave == 2019) |> 
+  dplyr::filter(!is.na(SCIENCE.TRUST)) %>%
+  dplyr::filter(!is.na(SCIENCE.TRUST_lead1)) %>%
+  dplyr::mutate(Employed = as.numeric(Employed)) |> 
+   arrange(Id, Wave) %>%
+   mutate(across(where(is.double), as.numeric)) |> 
+  dplyr::select(-c(
+    Env.Eff01.ActionBelief,
+    Env.Eff02.ActionFeeling,
+    YearMeasured
+  )) %>%
   #dplyr::mutate(across(!c(Id,Wave), ~ scale(.x)))%>%  # standarise vars for easy computing-- do this after imputation
   arrange(Id, Wave) %>%
-  data.frame() %>%
+  data.frame() %>% 
   mutate(across(where(is.double), as.numeric)) %>%
   arrange(Id)
 
-
-str(dt_formice$Employed)
-
-table1::table1(~ Env.SacNorms + Env.SacNorms_lead1 |
-                 Wave ,
-               data = df_cr,
-               overall = FALSE)#11953
+N
 
 
-table1::table1(
-  ~ Env.Eff01.ActionBelief_lead4 + Env.MotorwaySpend_lead5 |
-    Wave ,
-  data = df_cr,
+skim(dt_formice) |> 
+  arrange(n_missing)
+str(dt_formice)
+
+table1::table1(~ Env.ClimateChgConcern_lead1 + Env.ClimateChgConcern  + SCIENCE.TRUST + SCIENCE.TRUST_lead1|Wave, data = dt_formice,
   overall = FALSE
 )#11953
-
-
-
-
-
-table1::table1(
-  ~ Env.ClimateChgConcern + Env.ClimateChgConcern_lead1 |
-    Wave ,
-  data = df_cr,
-  overall = FALSE
-)#11953
-
-# hist(df_cr$Env.ClimateChgConcern)
-# hist(df_cr$Env.ClimateChgConcern_lead1)
 
 # number of ids
-length(unique(df_cr$Id)) #13178
+length(unique(dt_formice$Id)) #30115
 
 
 # MICE --------------------------------------------------------------------
 # mice model  -------------------------------------------------------------
 library(mice)
 
-mice_cc <- df_cr %>%
+mice_cc <- dt_formice %>%
   dplyr::select(-c(Wave, Id))  # won't otherwise run
 
 
@@ -352,10 +273,10 @@ mice:::find.collinear(mice_cc)
 mice_cc <- mice::mice(mice_cc,  seed = 0, m = 10)
 
 # save your mice model
-saveh(mice_cc, "pol_orient_environ_omni_wave5")
+saveh(mice_cc, "science_environ")
 
 
-mice_cc <- readh("pol_orient_environ_omni_wave5")
+mice_cc <- readh("science_environ")
 
 
 # check your mice model
@@ -380,7 +301,7 @@ skimr::skim(cc_l) |>
   arrange(n_missing)
 
 # for keeping track of ID's in mice data
-N <- length(unique(df_cr$Id))
+N <- length(unique(dt_formice$Id))
 N
 # create variables in z score
 cc_l2 <- cc_l %>%
@@ -388,54 +309,15 @@ cc_l2 <- cc_l %>%
   dplyr::mutate(income_log = log(Household.INC + 1)) |>
   dplyr::mutate(CharityDonate_log = log(CharityDonate + 1)) |>
   dplyr::mutate(Hours.Exercise_log = log(Hours.Exercise + 1)) |>
+  dplyr::mutate(Employed = as.numeric(Employed)) |> 
   dplyr::mutate(id = as.factor(rep(1:N, 11))) |> # needed for g-comp
-  dplyr::group_by(id) |> mutate(Env.Eff = mean(c(
-    Env.Eff01.ActionBelief, Env.Eff02.ActionFeeling
-  ), na.rm = TRUE)) |>
-  dplyr::mutate(Env.Eff_lead4 = mean(
-    c(Env.Eff01.ActionBelief_lead4, Env.Eff02.ActionFeeling_lead4),
+  # dplyr::group_by(id) |> mutate(Env.Eff = mean(c(
+  #   Env.Eff01.ActionBelief, Env.Eff02.ActionFeeling
+  # ), na.rm = TRUE)) |>
+  dplyr::mutate(Env.Eff_lead1 = mean(
+    c(Env.Eff01.ActionBelief_lead1, Env.Eff02.ActionFeeling_lead1),
     na.rm = TRUE
   )) |>
-  dplyr::mutate(PWI = mean(
-    c(
-      Your.Future.Security,
-      Your.Personal.Relationships,
-      Your.Health,
-      Standard.Living
-    ),
-    na.rm = TRUE
-  )) |>
-  # dplyr::mutate(KESSLER6sum = rowSums(across(
-  #   c(
-  #     kessler_hopeless,
-  #     # …  you feel hopeless?
-  #     kessler_depressed,
-  #     #…  you feel so depressed that nothing could cheer you up?
-  #     kessler_restless,
-  #     #…  you feel restless or fidgety?
-  #     kessler_effort,
-  #     #…  you feel that everything was an effort?
-  #     kessler_worthless,
-#     #…  you feel worthless?
-#     kessler_nervous #…  you feel nervous?
-#   )
-# ))) |>
-# dplyr::mutate(KESSLER6sum_lead2 = rowSums(across(
-#   c(
-#     kessler_hopeless_lead2,
-#     # …  you feel hopeless?
-#     kessler_depressed_lead2,
-#     #…  you feel so depressed that nothing could cheer you up?
-#     kessler_restless_lead2,
-#     #…  you feel restless or fidgety?
-#     kessler_effort_lead2,
-#     #…  you feel that everything was an effort?
-#     kessler_worthless_lead2,
-#     #…  you feel worthless?
-#     kessler_nervous_lead2
-#   ) #…  you feel nervous?
-# ))) |>
-ungroup() |>
   droplevels() |>
   dplyr::mutate(KESSLER6sum = round(as.integer(KESSLER6sum, 0))) %>%
   mutate(across(where(is.double), as.numeric)) %>%
@@ -443,8 +325,7 @@ ungroup() |>
   select(-c(.imp_z, .id_z)) %>%
   dplyr::mutate(
     EthCat = as.factor(EthCat),
-    Gender3  = as.factor(Gender3),
-    SexualOrientation  = as.factor(SexualOrientation)
+    Gender3  = as.factor(Gender3)
   )
 
 
@@ -455,11 +336,13 @@ cc_l2 <- cc_l2 %>% mutate_if(is.matrix, as.vector)
 # imputed data
 data_imputed <- mice::as.mids(cc_l2)
 
-saveh(data_imputed, "ml_pol_orient_environ_omni_wave5")
+saveh(data_imputed, "ml_science_environ")
 
 # imputed data in long format
 
 data_long <- mice::complete(data_imputed, "long", inc = F)
+
+hist(data_long$SCIENCE.TRUST_z)
 
 # raw data (pre-imputation) for sensitivity analysis
 data_raw <- data_long |>
@@ -628,7 +511,6 @@ data_ml <- tab_in |>
     #   Believe.Spirit,
     #   Believe.God,
     #   Spiritual.Identification,
-    SWB.SoC01,
     # EmotionRegulation1,
     # EmotionRegulation2,
     # EmotionRegulation3,
@@ -767,13 +649,9 @@ data_ml <- tab_in |>
 
 
 
-table1::table1( ~ Env.SatNZEnvironment_z + EthCat + SexualOrientation + Gender3 |
-                  Wave, data = data_ml)
+table1::table1(~ Env.SatNZEnvironment_z + EthCat + SexualOrientation + Gender3 |
+                 Wave,
+               data = data_ml)
 
 
 saveRDS(data_ml, here::here("data", "data_ml"))
-
-
-
-
-
