@@ -287,7 +287,7 @@ mice_cc <- mice::mice(mice_cc,  seed = 0, m = 10)
 
 # save your mice model
 saveh(mice_cc, "meaning_environ")
-
+readh
 
 mice_cc <- readh("meaning_environ")
 
@@ -327,8 +327,8 @@ cc_l2 <- cc_l %>%
   # dplyr::group_by(id) |> mutate(Env.Eff = mean(c(
   #   Env.Eff01.ActionBelief, Env.Eff02.ActionFeeling
   # ), na.rm = TRUE)) |>
-  dplyr::mutate(Env.Eff_lead2 = mean(
-    c(Env.Eff01.ActionBelief_lead2, Env.Eff02.ActionFeeling_lead1),
+  dplyr::mutate(Env.Eff_lead1 = mean(
+    c(Env.Eff01.ActionBelief_lead1, Env.Eff02.ActionFeeling_lead1),
     na.rm = TRUE
   )) |>
   droplevels() |>
