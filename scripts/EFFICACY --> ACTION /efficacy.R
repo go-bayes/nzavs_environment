@@ -44,8 +44,7 @@ df  <- readh("ml_environ_5_efficacy")
 
 #df<- data_imputed
 
-############### SET YOUR EXPOSURE VARIABLE, in this case "WORK one year after baseline
-## HERE WE USE THE EXAMPLE OF HOURS WORK / 10
+############### SET YOUR EXPOSURE VARIABLE, 
 
 # SWB.SoC01,
 # Env.CarbonRegs,
@@ -67,14 +66,14 @@ df  <- readh("ml_environ_5_efficacy")
 # Env.Eff02.ActionFeeling,
 # Env.CarbonRegs
 
-data_long$Env.SacNorms_lead1
+#data_long$Env.SacNorms_lead1
 
 
 # dplyr::mutate(Env.Eff_lead1 = mean(
 #   c(Env.Eff01.ActionBelief_lead1, Env.Eff02.ActionFeeling_lead1)
 #   
   
-X = "Env.Eff_lead1_z"
+X = "Env.Eff_lead1_z"  ## Weekly hours devided by 10
 
 
 # 
@@ -87,13 +86,12 @@ X = "Env.Eff_lead1_z"
 ############### NEXT SET UP VARIABLES FOR MODELS AND GRAPHS
 
 # You may set your label for your graphs  HERE WE STICK TO THE EXAMPLE OF WORK
-#xlab = "Env.Eff_lead1_z"  ## Weekly hours devided by 10
-
+xlab = "By taking personal action I believe I can make a positive difference to environmental problems."
 
 hist(data_long$Env.Eff_lead1_z)
 # SET THE RANGE for our natural experiment (here from -1 pol.orient to 1)
-min =  0
-max =  1
+min = -2
+max =  2
 
 
 #cor(data_long$Env.Eff01.ActionBelief_lead1_z,data_long$Env.Eff02.ActionFeeling_lead1_z)  #.78
@@ -102,10 +100,10 @@ max =  1
 x =  min:max
 
 # baseline
-r = 1
+r = -1
 
 # focal contrast for X
-f = 0
+f = 1
 
 # REQUIRED for certain model model functions
 c = x
@@ -299,7 +297,6 @@ real2_p
 
 
 # Env.ClimateChgReal_lead3_z ----------------------------------------------
-
 
 Y = "Env.ClimateChgReal_lead3_z"
 main = "Climate Change is real +3"
@@ -1480,7 +1477,7 @@ publictransport5_p
 # COMPARE TABLES  --------------------------------------------------
 main = "Comparison of Year-wise Causal Effects (Stated Environmental Attitudes) / Evalues"
 h_tab <- rbind(
-  humancaused2_c,
+#  humancaused2_c,
   humancaused3_c,
   humancaused4_c,
   climateconcern2_c,
@@ -1498,7 +1495,7 @@ h_tab <- rbind(
 h_tab |>
   kbl(caption = main,
       digits = 3,
-      "html") |>
+      "latex") |>
   #kable_styling() %>%
   # row_spec(c(1:5,8:11),  # Bold out the lines where EVALUES do not cross zero or for ratios, 1
   #          bold = T,
