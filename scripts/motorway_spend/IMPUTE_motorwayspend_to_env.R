@@ -123,9 +123,9 @@ dt_formice <- dt_init %>%
     Parent,
     Relid,
     # Religious,
-     Church,
-     Prayer,
-     Scripture,
+    Church,
+    Prayer,
+    Scripture,
     Believe.Spirit,
     Believe.God,
     #  Spiritual.Identification,
@@ -185,7 +185,7 @@ dt_formice <- dt_init %>%
     ImpermeabilityGroup,
     NeighbourhoodCommunity,
     #Env.CarbonRegs,
-   # Env.Native.Species,
+    # Env.Native.Species,
     # #Env.SacNorms,
     # # Env.SacMade,
     # # Env.SacWilling,
@@ -207,10 +207,8 @@ dt_formice <- dt_init %>%
   mutate(Believe.Spirit = as.numeric(Believe.Spirit)) |> 
   arrange(Id, Wave)  |> 
   dplyr::mutate(across(
-    c(LIFEMEANING,
-      KESSLER6sum,
-      # Env.MotorwaySpend,
-      # Env.PubTransSubs,
+    c(Env.MotorwaySpend,
+      Env.PubTransSubs
       # Env.ClimateChgReal,
       # Env.ClimateChgCause,
       # Env.ClimateChgConcern,
@@ -235,10 +233,10 @@ dt_formice <- dt_init %>%
   # dplyr::filter(!is.na(Env.MotorwaySpend_lead1)) %>%
   # dplyr::filter(!is.na(Env.PubTransSubs)) %>%
   # dplyr::filter(!is.na(Env.PubTransSubs_lead1)) %>%
-  dplyr::filter(!is.na(LIFEMEANING)) %>%
-  dplyr::filter(!is.na(LIFEMEANING_lead1)) %>%
-  dplyr::filter(!is.na(KESSLER6sum)) %>%
-  dplyr::filter(!is.na(KESSLER6sum_lead1)) %>%
+  dplyr::filter(!is.na(Env.MotorwaySpend)) %>%
+  dplyr::filter(!is.na(Env.MotorwaySpend_lead1)) %>%
+  dplyr::filter(!is.na(Env.PubTransSubs)) %>%
+  dplyr::filter(!is.na(Env.PubTransSubs_lead1)) %>%
   dplyr::mutate(Employed = as.numeric(Employed)) |> 
   arrange(Id, Wave) %>%
   mutate(across(where(is.double), as.numeric)) |> 
@@ -259,12 +257,11 @@ skim(dt_formice) |>
 str(dt_formice)
 
 table1::table1(~ Env.ClimateChgConcern_lead1 + Env.ClimateChgConcern  + SCIENCE.TRUST + SCIENCE.TRUST_lead1|Wave, data = dt_formice, overall = FALSE
-)#11953
+)
 
 # number of ids
 length(unique(dt_formice$Id)) #33982
-N <- 34108
-N
+
 # MICE --------------------------------------------------------------------
 # mice model  -------------------------------------------------------------
 library(mice)
@@ -284,10 +281,10 @@ mice:::find.collinear(mice_cc)
 mice_cc <- mice::mice(mice_cc,  seed = 0, m = 10)
 
 # save your mice model
-saveh(mice_cc, "environment-meaning_environ")
+saveh(mice_cc, "environment-motorway_environ")
+readh
 
-
-mice_cc <- readh("environment-meaning_environ")
+mice_cc <- readh("environment-motorway_environ")
 
 
 # check your mice model
@@ -316,22 +313,21 @@ N <- length(unique(dt_formice$Id))
 N
 # create variables in z score
 cc_l2 <- cc_l %>%
-  dplyr::mutate(id = as.factor(rep(1:N, 11))) |> # needed for g-
+  dplyr::mutate(id = as.factor(rep(1:N, 11))) |> # needed for g-comp
   dplyr::mutate(income_log = log(Household.INC + 1)) |>
   dplyr::mutate(CharityDonate_log = log(CharityDonate + 1)) |>
   dplyr::mutate(Hours.Exercise_log = log(Hours.Exercise + 1)) |>
   dplyr::mutate(Employed = as.numeric(Employed)) |> 
   dplyr::mutate(id = as.factor(rep(1:N, 11))) |> # needed for g-comp
-  dplyr::group_by(id) |> 
-  mutate(Env.Eff = mean(c(
-    Env.Eff01.ActionBelief, Env.Eff02.ActionFeeling
-  ), na.rm = TRUE)) |>
-  dplyr::mutate(Env.Eff_lead2 = mean(
-    c(Env.Eff01.ActionBelief_lead2, Env.Eff02.ActionFeeling_lead2),
+  # dplyr::group_by(id) |> mutate(Env.Eff = mean(c(
+  #   Env.Eff01.ActionBelief, Env.Eff02.ActionFeeling
+  # ), na.rm = TRUE)) |>
+  dplyr::mutate(Env.Eff_lead1 = mean(
+    c(Env.Eff01.ActionBelief_lead1, Env.Eff02.ActionFeeling_lead1),
     na.rm = TRUE
   )) |>
   droplevels() |>
-  ungroup() |> 
+  dplyr::mutate(KESSLER6sum = round(as.integer(KESSLER6sum, 0))) %>%
   mutate(across(where(is.double), as.numeric)) %>%
   dplyr::mutate(across(where(is.numeric), ~ scale(.x), .names = "{col}_z")) %>%
   select(-c(.imp_z, .id_z)) %>%
@@ -348,18 +344,58 @@ cc_l2 <- cc_l2 %>% mutate_if(is.matrix, as.vector)
 # imputed data
 data_imputed <- mice::as.mids(cc_l2)
 
-saveh(data_imputed, "ml_meaning_environ")
+saveh(data_imputed, "ml_motorway_environ")
 
 # imputed data in long format
 
 data_long <- mice::complete(data_imputed, "long", inc = F)
 
-hist(data_long$SCIENCE.TRUST_z)
 
 # raw data (pre-imputation) for sensitivity analysis
 data_raw <- data_long |>
   slice(1:N)
 
+str(data_long)
 
+# EXAMPLE DEMOGRAPHIC TABLE -----------------------------------------------
+
+
+df_crr <-  df_cr |>
+  dplyr::mutate(Volunteers = if_else(HoursCharity > 0, 1, 0))
+
+df_crr <- df_cr |> dplyr::group_by(Id) |> mutate(PWI = mean(
+  c(
+    Your.Future.Security,
+    Your.Personal.Relationships,
+    Your.Health,
+    Standard.Living
+  ),
+  na.rm = TRUE
+))
+
+df_crr$Male <- factor(df_cr$Male, labels = c("No", "Yes"))
+df_crr$EthCat <-
+  factor(df_cr$EthCat, labels = c("Euro", "Maori", "Pacific", "Asian"))
+df_crt$Believe.Spirit <-
+  factor(df_cr$Believe.Spirit, labels = c("No", "Yes"))
+df_crt$Believe.God <-
+  factor(df_cr$Believe.God, labels = c("No", "Yes"))
+df_crt$Employed <-
+  factor(df_cr$Employed, labels = c("No", "Yes"))
+df_crt$Volunteers <-
+  factor(df_crt$Volunteers, labels = c("No", "Yes"))
+df_crt$Parent <- factor(df_cr$Parent, labels = c("No", "Yes"))
+df_crt$Partner <-
+  factor(df_cr$Partner, labels = c("No", "Yes"))
+df_crt$Retired <-
+  factor(df_cr$retired, labels = c("No", "Yes"))
+df_crt$SemiRetired <-
+  factor(df_cr$semiretired, labels = c("No", "Yes"))
+df_crt$Urban <- factor(df_cr$Urban, labels = c("No", "Yes"))
+df_crt$BigDoms <-
+  factor(df_cr$BigDoms,
+         labels = c("Buddhist", "Christian", "Muslim", "TheOthers"))
+df_crt$NeighbourhoodCommunity <- df_cr$community
+df_crt$MajorDenominations <- df_cr$BigDoms
 
 

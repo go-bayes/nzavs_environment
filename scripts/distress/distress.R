@@ -28,7 +28,7 @@ pull_path <-
 df <- readh("ml_meaning_environ")
 
 mf <- mice::complete(df)
-hist(mf$LIFEMEANING_lead1_z)
+hist(mf$KESSLER6sum_lead1_z)
 #df<- data_imputed
 
 ############### SET YOUR EXPOSURE VARIABLE,
@@ -52,9 +52,6 @@ hist(mf$LIFEMEANING_lead1_z)
 # Env.Eff02.ActionFeeling,
 # Env.CarbonRegs
 
-
-data_long$Env.ClimateChgCause_lead1
-
 #Climate change is caused by humans.
 # hist(data_long$Env.ClimateChgCause_lead1)
 # sd(data_long$Env.ClimateChgCause_lead1)
@@ -63,11 +60,10 @@ data_long$Env.ClimateChgCause_lead1
 
 
 ############### NEXT SET UP VARIABLES FOR MODELS AND GRAPHS
-X = "LIFEMEANING_lead1_z"
+X = "KESSLER6sum_lead1_z"
 
 # You may set your label for your graphs  HERE WE STICK TO THE EXAMPLE OF WORK
-xlab = "My life has a clear sense of purpose.\nI have a good sense of what makes my life meaningful."
-# Steger, M. F., Frazier, P., Oishi, S., & Kaler, M. (2006). The Meaning in Life Questionnaire: Assessing the presence of and search for meaning in life. Journal of Counseling Psychology, 53, 80-93.
+xlab = "Kessler 6 distress (SD)."
 
 #Climate change is caused by humans.
 
@@ -124,7 +120,7 @@ cvars = c(
   "BELONG_z",
   "CharityDonate_log_z",
   "ChildrenNum_z",
- # "Church_z",
+  # "Church_z",
   "NeighbourhoodCommunity_z",
   "Edu_z",
   "Employed_z",
@@ -159,7 +155,7 @@ cvars = c(
   "Standard.Living_z",
   "SUPPORT_z",
   "Urban_z",
- # "Volunteers_z",
+  # "Volunteers_z",
   "Your.Health_z",
   "Your.Future.Security_z",
   "Your.Personal.Relationships_z",
@@ -493,12 +489,12 @@ h_tab |>
 
 
 revealed_plots <-  real2_p +
-humancaused2_p +
-climateconcern2_p +
-climateconcern3_p +
-climateconcern4_p +
-satnzenv2_p +
-efficacy2_p +
+  humancaused2_p +
+  climateconcern2_p +
+  climateconcern3_p +
+  climateconcern4_p +
+  satnzenv2_p +
+  efficacy2_p +
   plot_annotation(title = "Causal effects of political orientation on environmental values") +
   plot_layout(guides = 'collect')
 
