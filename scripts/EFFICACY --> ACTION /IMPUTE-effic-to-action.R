@@ -26,8 +26,6 @@ pull_path <-
     "~/The\ Virtues\ Project\ Dropbox/Joseph\ Bulbulia/00Bulbulia\ Pubs/2021/DATA/ldf.5"
   )
 
-dff <- readRDS(pull_path)
-
 # Worked example selecting waves 2018 -- 2020 with exposure year as 2019
 
 
@@ -229,6 +227,7 @@ df_cr <- tab_in %>%
     Church = ifelse(Church > 8, 8, Church)
   ) %>%
   arrange(Id, Wave)  %>% #
+  group_by(Wave) |> 
   dplyr::mutate(across(
     c(Env.Eff01.ActionBelief,
       Env.Eff02.ActionFeeling,

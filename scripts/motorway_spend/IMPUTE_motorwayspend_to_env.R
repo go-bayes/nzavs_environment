@@ -26,6 +26,8 @@ pull_path <-
 
 dt <- readRDS(pull_path)
 
+length(unique(dt$Id))
+
 # Worked example selecting waves 2018 -- 2020 with exposure year as 2019
 
 # A poverty of measures means that we can only work with wave 11 for now

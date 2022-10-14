@@ -28,7 +28,7 @@ pull_path <-
 df <- readh("ml_meaning_environ")
 
 mf <- mice::complete(df)
-hist(mf$LIFEMEANING_lead1_z)
+min(mf$LIFEMEANING_lead1_z)
 #df<- data_imputed
 
 ############### SET YOUR EXPOSURE VARIABLE,
@@ -52,9 +52,6 @@ hist(mf$LIFEMEANING_lead1_z)
 # Env.Eff02.ActionFeeling,
 # Env.CarbonRegs
 
-
-data_long$Env.ClimateChgCause_lead1
-
 #Climate change is caused by humans.
 # hist(data_long$Env.ClimateChgCause_lead1)
 # sd(data_long$Env.ClimateChgCause_lead1)
@@ -72,7 +69,7 @@ xlab = "My life has a clear sense of purpose.\nI have a good sense of what makes
 #Climate change is caused by humans.
 
 # SET THE RANGE
-min = -1
+min = -2
 max =  1
 
 
@@ -96,7 +93,7 @@ p = c(r, f) #
 #delta = 4 #
 delta = abs(r - f)
 
-ylim = c(-.1,.25)  # SET AS YOU LIKE -- here, how much movement across a standard deviation unit of the outcome
+ylim = c(-.2, .3)  # SET AS YOU LIKE -- here, how much movement across a standard deviation unit of the outcome
 ylim_contrast = c(0, 2)  # SET AS YOU LIKE (FOR CONTRASTS )
 
 # mice imputed data
@@ -124,7 +121,7 @@ cvars = c(
   "BELONG_z",
   "CharityDonate_log_z",
   "ChildrenNum_z",
- # "Church_z",
+  # "Church_z",
   "NeighbourhoodCommunity_z",
   "Edu_z",
   "Employed_z",
@@ -150,7 +147,7 @@ cvars = c(
   "Pol.Orient_z",
   "Relid_z",
   "Respect.Self_z",
-  "SCIENCE.TRUST_z",
+  # "SCIENCE.TRUST_z",
   # "Rumination_z",
   "SELF.CONTROL_z",
   "SELF.ESTEEM_z",
@@ -159,7 +156,7 @@ cvars = c(
   "Standard.Living_z",
   "SUPPORT_z",
   "Urban_z",
- # "Volunteers_z",
+  # "Volunteers_z",
   "Your.Health_z",
   "Your.Future.Security_z",
   "Your.Personal.Relationships_z",
@@ -189,7 +186,10 @@ main = "Climate Change is real +2"
 ylab = "Climate change is real (SD)"
 sub = "Climate change is real"
 # regression
-out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+out_m <- mice_gaussian(df = df,
+                       X = X,
+                       Y = Y,
+                       cvars = cvars)
 
 summary(pool(out_m))
 ## g-computation
@@ -244,7 +244,10 @@ main = "Climate Change is Human Caused +2"
 ylab = "Climate Change is Human Caused (SD)"
 sub = "Climate change is caused by humans"
 # regression
-out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+out_m <- mice_gaussian(df = df,
+                       X = X,
+                       Y = Y,
+                       cvars = cvars)
 
 summary(pool(out_m))
 ## g-computation
@@ -301,7 +304,10 @@ main = "Climate Concern +2"
 ylab = "Climate Concern (SD)"
 sub = "I am deeply concerned about climate change."
 # regression
-out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+out_m <- mice_gaussian(df = df,
+                       X = X,
+                       Y = Y,
+                       cvars = cvars)
 
 summary(pool(out_m))
 ## g-computation
@@ -317,7 +323,8 @@ out_ct <-
   )
 out_ct
 
-climateconcern2_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+climateconcern2_c <-
+  vanderweelevalue_ols(out_ct, f - min, delta, sd)
 climateconcern2_c
 
 # show table
@@ -334,7 +341,7 @@ climateconcern2_p <-
     sub = sub
   )
 
-
+climateconcern2_p
 ggsave(
   humancaused2_p,
   path = here::here(here::here("figs", "figs_meaning")),
@@ -356,7 +363,10 @@ ylab = "Satisifaction with NZ Environment (SD)"
 sub = "The quality of New Zealand’s natural environment."
 
 # regression
-out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+out_m <- mice_gaussian(df = df,
+                       X = X,
+                       Y = Y,
+                       cvars = cvars)
 
 ## g-computation
 out_ct <-
@@ -411,7 +421,10 @@ ylab = "Action Belief (SD)"
 sub = "I feel I can make a difference to\nthe state of the environment.\nBy taking personal action I believe\nI can make a positive difference to environmental problems."
 
 # regression
-out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+out_m <- mice_gaussian(df = df,
+                       X = X,
+                       Y = Y,
+                       cvars = cvars)
 
 ## g-computation
 out_ct <-
@@ -461,21 +474,17 @@ ggsave(
 
 # COMPARE TABLES  --------------------------------------------------
 main = "Comparison of Year-wise Causal Effects (Stated Environmental Attitudes) / Evalues"
-h_tab <- rbind(
-  #  humancaused2_c,
+h_tab <- rbind(#  humancaused2_c,
   real2_c,
   humancaused2_c,
   climateconcern2_c,
-  climateconcern3_c,
-  climateconcern4_c,
   satnzenv2_c,
-  efficacy2_c
-)
+  efficacy2_c)
 
 h_tab |>
   kbl(caption = main,
       digits = 3,
-      "latex") |>
+      "html") |>
   #kable_styling() %>%
   # row_spec(c(1:5,8:11),  # Bold out the lines where EVALUES do not cross zero or for ratios, 1
   #          bold = T,
@@ -488,17 +497,13 @@ h_tab |>
 
 # graphs ------------------------------------------------------------------
 
-
-
-
-
 revealed_plots <-  real2_p +
-humancaused2_p +
-climateconcern2_p +
-climateconcern3_p +
-climateconcern4_p +
-satnzenv2_p +
-efficacy2_p +
+  humancaused2_p +
+  climateconcern2_p +
+  climateconcern3_p +
+  climateconcern4_p +
+  satnzenv2_p +
+  efficacy2_p +
   plot_annotation(title = "Causal effects of political orientation on environmental values") +
   plot_layout(guides = 'collect')
 

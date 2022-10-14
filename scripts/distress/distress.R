@@ -27,8 +27,8 @@ pull_path <-
 
 df <- readh("ml_meaning_environ")
 
-mf <- mice::complete(df)
-hist(mf$KESSLER6sum_lead1_z)
+# mf <- mice::complete(df)
+# hist(mf$KESSLER6sum_lead1_z)
 #df<- data_imputed
 
 ############### SET YOUR EXPOSURE VARIABLE,
@@ -69,7 +69,7 @@ xlab = "Kessler 6 distress (SD)."
 
 # SET THE RANGE
 min = -1
-max =  1
+max =  3
 
 
 # set full range of X
@@ -92,7 +92,7 @@ p = c(r, f) #
 #delta = 4 #
 delta = abs(r - f)
 
-ylim = c(-.1,.25)  # SET AS YOU LIKE -- here, how much movement across a standard deviation unit of the outcome
+ylim = c(-.2,.2)  # SET AS YOU LIKE -- here, how much movement across a standard deviation unit of the outcome
 ylim_contrast = c(0, 2)  # SET AS YOU LIKE (FOR CONTRASTS )
 
 # mice imputed data
@@ -146,7 +146,7 @@ cvars = c(
   "Pol.Orient_z",
   "Relid_z",
   "Respect.Self_z",
-  "SCIENCE.TRUST_z",
+ # "SCIENCE.TRUST_z",
   # "Rumination_z",
   "SELF.CONTROL_z",
   "SELF.ESTEEM_z",
@@ -185,7 +185,8 @@ main = "Climate Change is real +2"
 ylab = "Climate change is real (SD)"
 sub = "Climate change is real"
 # regression
-out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+out_m <- mice_gaussian(df = df, X = X, Y = Y, 
+                       cvars = cvars)
 
 summary(pool(out_m))
 ## g-computation
@@ -220,11 +221,9 @@ real2_p <-
 
 real2_p
 
-
-
 ggsave(
   real2_p,
-  path = here::here(here::here("figs", "figs_meaning")),
+  path = here::here(here::here("figs", "figs_distress")),
   width = 16,
   height = 9,
   units = "in",
@@ -278,7 +277,7 @@ humancaused2_p
 
 ggsave(
   humancaused2_p,
-  path = here::here(here::here("figs", "figs_meaning")),
+  path = here::here(here::here("figs", "figs_distress")),
   width = 16,
   height = 9,
   units = "in",
@@ -296,6 +295,7 @@ Y = "Env.ClimateChgConcern_lead2_z"
 main = "Climate Concern +2"
 ylab = "Climate Concern (SD)"
 sub = "I am deeply concerned about climate change."
+
 # regression
 out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
 
@@ -316,6 +316,7 @@ out_ct
 climateconcern2_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
 climateconcern2_c
 
+
 # show table
 # graph
 climateconcern2_p <-
@@ -330,10 +331,11 @@ climateconcern2_p <-
     sub = sub
   )
 
+climateconcern2_p
 
 ggsave(
-  humancaused2_p,
-  path = here::here(here::here("figs", "figs_meaning")),
+  climateconcern2_p,
+  path = here::here(here::here("figs", "figs_distress")),
   width = 16,
   height = 9,
   units = "in",
@@ -387,7 +389,7 @@ satnzenv2_p
 
 ggsave(
   satnzenv2_p,
-  path = here::here(here::here("figs", "figs_meaning")),
+  path = here::here(here::here("figs", "figs_distress")),
   width = 16,
   height = 9,
   units = "in",
@@ -444,7 +446,7 @@ efficacy2_p
 
 ggsave(
   efficacy2_p,
-  path = here::here(here::here("figs", "figs_meaning")),
+  path = here::here(here::here("figs", "figs_distress")),
   width = 16,
   height = 9,
   units = "in",
@@ -462,8 +464,6 @@ h_tab <- rbind(
   real2_c,
   humancaused2_c,
   climateconcern2_c,
-  climateconcern3_c,
-  climateconcern4_c,
   satnzenv2_c,
   efficacy2_c
 )
@@ -471,7 +471,7 @@ h_tab <- rbind(
 h_tab |>
   kbl(caption = main,
       digits = 3,
-      "latex") |>
+      "html") |>
   #kable_styling() %>%
   # row_spec(c(1:5,8:11),  # Bold out the lines where EVALUES do not cross zero or for ratios, 1
   #          bold = T,
@@ -483,10 +483,6 @@ h_tab |>
 
 
 # graphs ------------------------------------------------------------------
-
-
-
-
 
 revealed_plots <-  real2_p +
   humancaused2_p +
@@ -504,7 +500,7 @@ revealed_plots
 
 ggsave(
   revealed_plots,
-  path = here::here(here::here("figs", "figs_meaning", "revealed_plots")),
+  path = here::here(here::here("figs", "figs_distress", "revealed_plots")),
   width = 16,
   height = 12,
   units = "in",

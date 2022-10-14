@@ -243,13 +243,14 @@ dt_formice <- dt_init %>%
   arrange(Id, Wave) %>%
   mutate(across(where(is.double), as.numeric)) |> 
   dplyr::select(-c(
-    Env.Eff01.ActionBelief,
-    Env.Eff02.ActionFeeling,
+  # Env.Eff01.ActionBelief,
+  # Env.Eff02.ActionFeeling,
     YearMeasured
   )) %>%
   #dplyr::mutate(across(!c(Id,Wave), ~ scale(.x)))%>%  # standarise vars for easy computing-- do this after imputation
   arrange(Id, Wave) %>%
   data.frame() %>% 
+  droplevels() |> 
   mutate(across(where(is.double), as.numeric)) %>%
   arrange(Id)
 
@@ -313,7 +314,7 @@ skimr::skim(cc_l) |>
 
 # for keeping track of ID's in mice data
 N <- length(unique(dt_formice$Id))
-N
+N # 34108
 # create variables in z score
 cc_l2 <- cc_l %>%
   dplyr::mutate(id = as.factor(rep(1:N, 11))) |> # needed for g-
@@ -323,9 +324,10 @@ cc_l2 <- cc_l %>%
   dplyr::mutate(Employed = as.numeric(Employed)) |> 
   dplyr::mutate(id = as.factor(rep(1:N, 11))) |> # needed for g-comp
   dplyr::group_by(id) |> 
-  mutate(Env.Eff = mean(c(
-    Env.Eff01.ActionBelief, Env.Eff02.ActionFeeling
-  ), na.rm = TRUE)) |>
+#   mutate(Env.Eff = mean(c(  
+#     Env.Eff01.ActionBelief, Env.Eff02.ActionFeeling   # note at baseline
+#   ), na.rm = TRUE)) 
+# |>
   dplyr::mutate(Env.Eff_lead2 = mean(
     c(Env.Eff01.ActionBelief_lead2, Env.Eff02.ActionFeeling_lead2),
     na.rm = TRUE
@@ -354,7 +356,9 @@ saveh(data_imputed, "ml_meaning_environ")
 
 data_long <- mice::complete(data_imputed, "long", inc = F)
 
-hist(data_long$SCIENCE.TRUST_z)
+hist(data_long$LIFEMEANING_lead1_z)
+hist(data_long$KESSLER6sum_lead1_z)
+
 
 # raw data (pre-imputation) for sensitivity analysis
 data_raw <- data_long |>
