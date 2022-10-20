@@ -2050,7 +2050,7 @@ gcomp_forestplot_efficacy
 
 ggsave(
   gcomp_forestplot_efficacy,
-  path = here::here(here::here("figs", "efficacy")),
+  path = here::here(here::here("figs", "figs_efficacy")),
   width = 12,
   height = 8,
   units = "in",
@@ -2060,27 +2060,27 @@ ggsave(
   dpi = 1200
 )
 
-
-## Risk ratio plot
-out_rr_church <- bind_forestplot(list(smoker_p, volunteers_p))
-
-# save for future use
-saveh(out_rr_church, "outcomewide-belief-out_rr_church")
-
-# plot
-gcomp_forestplot_rr_church <-
-  gcomp_forestplot_rr(out_rr_church, title = "Outcomewide Church Attendance RR",
-                      ylim = c(.5, 1.5))
-gcomp_forestplot_rr_church
-
-ggsave(
-  gcomp_forestplot_rr_church,
-  path = here::here(here::here("figs", "figs_church")),
-  width = 12,
-  height = 8,
-  units = "in",
-  filename = "gcomp_forestplot_rr_church.jpg",
-  device = 'jpeg',
-  limitsize = FALSE,
-  dpi = 1200
-)
+# 
+# ## Risk ratio plot
+# out_rr_church <- bind_forestplot(list(smoker_p, volunteers_p))
+# 
+# # save for future use
+# saveh(out_rr_church, "outcomewide-belief-out_rr_church")
+# 
+# # plot
+# gcomp_forestplot_rr_church <-
+#   gcomp_forestplot_rr(out_rr_church, title = "Outcomewide Church Attendance RR",
+#                       ylim = c(.5, 1.5))
+# gcomp_forestplot_rr_church
+# 
+# ggsave(
+#   gcomp_forestplot_rr_church,
+#   path = here::here(here::here("figs", "figs_church")),
+#   width = 12,
+#   height = 8,
+#   units = "in",
+#   filename = "gcomp_forestplot_rr_church.jpg",
+#   device = 'jpeg',
+#   limitsize = FALSE,
+#   dpi = 1200
+# )
