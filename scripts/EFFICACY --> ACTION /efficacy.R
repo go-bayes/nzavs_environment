@@ -42,9 +42,8 @@ pull_path <-
 
 #df <- readh("ml_pol_orient_environ_omni_wave5")
 
-df  <- readh("ml_environ_5_efficacy")
+df  <- readRDS("/Users/joseph/v-project\ Dropbox/Joseph\ Bulbulia/outcomewide/mods/ml_environ_5_efficacy")
 
-summary(df$data$Env.Eff_lead1_z)
 
 #df<- data_imputed
 
@@ -94,7 +93,7 @@ xlab = "By taking personal action I believe I can make a positive difference to 
 
 hist(data_long$Env.Eff_lead1_z)
 # SET THE RANGE for our natural experiment (here from -1 pol.orient to 1)
-min = -2.5
+min =  1.5
 max =  1.5
 
 
@@ -104,10 +103,10 @@ max =  1.5
 x =  min:max
 
 # baseline
-r = -.5
+r = -1
 
 # focal contrast for X
-f = 1.5
+f = 1
 
 # REQUIRED for certain model model functions
 c = x

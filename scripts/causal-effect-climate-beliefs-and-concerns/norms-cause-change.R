@@ -3,6 +3,8 @@
 ## Concern study
 
 #template_outcomewide.R
+# Environmental sacrifice norm perception
+
 
 # read libraries
 source("https://raw.githubusercontent.com/go-bayes/templates/main/functions/libs.R")
@@ -38,6 +40,7 @@ pull_path <-
 ###############  RENAME YOUR IMPUTED DATASET  'df"
 
 df <- readh("ml_environ_omni_wave5")
+df <- readRDS("/Users/joseph/v-project\ Dropbox/Joseph\ Bulbulia/outcomewide/mods/ml_environ_omni_wave5")
 
 #df<- data_imputed
 
@@ -83,14 +86,14 @@ xlab = "“Do you think most New Zealanders are willing to make sacrifices\nto t
 
 # SET THE RANGE
 min = -1
-max =  2
+max =  1
 
 
 # set full range of X
 x =  min:max
 
 # baseline
-r = -1
+r = 0
 
 # focal contrast for X
 f = 1
@@ -106,7 +109,8 @@ p = c(r, f) #
 #delta = 4 #
 delta = abs(r - f)
 
-ylim = c(-1, 1)  # SET AS YOU LIKE -- here, how much movement across a standard deviation unit of the outcome
+ylim = c(-.1,.15)  # SET AS YOU LIKE -- here, how much movement across a standard deviation unit of the outcome
+
 ylim_contrast = c(0, 2)  # SET AS YOU LIKE (FOR CONTRASTS )
 
 # mice imputed data
@@ -238,7 +242,76 @@ cvars
 # ), 3)
 # round(EValue::evalues.RR(, lo =  , hi = , true = 1), 4)
 #
+##### FOR GRANT
+length(unique(df$data$id))
+Env.SacNorms.T05,
+Env.SacNorms.T06,
+#  Env.ClimateChgConcern_lead1_z ------------------------------------------------------------
+Y = "Env.ClimateChgConcern_lead2_z"
+main = "Causal effect of Descriptive Norms on Climate Concern"
+ylab = "Climate Concern (SD)"
+#xlab1 = "Trust in Science (SD)"
+ylab = "Climate Concern (SD)"
+xlab1 = "Descriptive Norms (SD)"
+sub = "New Zealand Attitudes & Values Study: years 2013-2016, N =  13,178"
 
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+summary(pool(out_m))
+## g-computation
+
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+out_ct
+
+climateconcern1_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+climateconcern1_c # Evalue  1.111
+
+# show table
+# graph
+climateconcern1_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab1,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+
+norms_concern <- climateconcern1_p + 
+  theme(
+    legend.position = "right",
+    plot.title = element_text(size = 18, face = "bold"),
+    plot.subtitle = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 15),
+    legend.title = element_text(color = "Black", size = 15),
+    axis.text=element_text(size=15, face = "bold"),
+    axis.title=element_text(size=15, face = "bold")
+  ) 
+norms_concern
+
+ggsave(
+  norms_concern,
+  path = here::here(here::here("figs", "treatment-confounder-feedback")),
+  width = 8,
+  height = 6,
+  units = "in",
+  filename = "norms_concern.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 400
+)
 
 ################# BELOW THE MANY OUTCOMES!  ########################################
 
@@ -737,6 +810,8 @@ climateconcern2_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
 climateconcern2_c
 
 # show table
+# est    se   ui     li E-value threshold
+# Climate Concern +2 0.016 0.012 0.04 -0.007   1.137         1
 # graph
 climateconcern2_p <-
   ggplot_stglm(
@@ -750,6 +825,8 @@ climateconcern2_p <-
     sub = sub
   )
 climateconcern2_p
+
+
 
 #  Env.ClimateChgConcern_lead3_z ------------------------------------------------------------
 Y = "Env.ClimateChgConcern_lead3_z"
@@ -1798,6 +1875,23 @@ ggsave(
   limitsize = FALSE,
   dpi = 600
 )
+
+norms_concern <- climateconcern2_p
+
+ggsave(
+  climateconcern2_p,
+  path = here::here(here::here("figs", "treatment-confounder-feedback")),
+  width = 8,
+  height = 6,
+  units = "in",
+  filename = "norms_concern.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 400
+)
+
+saveRDS(climateconcern2_p, here::here("figs", "treatment-confounder-feedback", "norms_concern"))
+
 
 
 # REVEALED PLOTS ----------------------------------------------------------

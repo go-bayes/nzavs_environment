@@ -14,15 +14,15 @@ conflict_prefer("pool", "mice")
 conflict_prefer("cbind", "base")
 # for saving models
 push_mods <-
-  fs::path_expand("~/The\ Virtues\ Project\ Dropbox/outcomewide/mods")
+  fs::path_expand("/Users/joseph/v-project\ Dropbox/outcomewide/mods")
 push_figs <-
-  fs::path_expand("~/Users/joseph/The\ Virtues\ Project\ Dropbox/outcomewide/figs")
+  fs::path_expand(  "/Users/joseph/v-project\ Dropbox/outcomewide/figs")
 
 
 # read data
 pull_path <-
   fs::path_expand(
-    "~/The\ Virtues\ Project\ Dropbox/Joseph\ Bulbulia/00Bulbulia\ Pubs/2021/DATA/ldf.5"
+    "/Users/joseph/v-project\ Dropbox/Joseph\ Bulbulia/00Bulbulia\ Pubs/2021/DATA/ldf.5"
   )
 
 
@@ -36,7 +36,12 @@ pull_path <-
 
 ###############  RENAME YOUR IMPUTED DATASET  'df"
 
+# not working
 df <- readh("ml_science_environ")
+
+length(unique(df$data$id)) ### 33013
+
+df<- readRDS(here::here( "/Users/joseph/v-project\ Dropbox/Joseph\ Bulbulia/outcomewide/mods/ml_science_environ"))
 
 #df<- data_imputed
 
@@ -62,7 +67,6 @@ df <- readh("ml_science_environ")
 # Env.CarbonRegs
 
 
-data_long$Env.ClimateChgCause_lead1
 X = "SCIENCE.TRUST_lead1_z"
 #Climate change is caused by humans.
 # hist(data_long$Env.ClimateChgCause_lead1)
@@ -79,7 +83,7 @@ xlab = "I have a high degree of confidence in the scientific community.\nOur soc
 #Climate change is caused by humans.
 
 # SET THE RANGE
-min = -1
+min =  -1
 max =  1
 
 
@@ -87,7 +91,7 @@ max =  1
 x =  min:max
 
 # baseline
-r = -1
+r = 0
 
 # focal contrast for X
 f = 1
@@ -103,7 +107,7 @@ p = c(r, f) #
 #delta = 4 #
 delta = abs(r - f)
 
-ylim = c(-.1,.25)  # SET AS YOU LIKE -- here, how much movement across a standard deviation unit of the outcome
+ylim = c(-.1,.15)  # SET AS YOU LIKE -- here, how much movement across a standard deviation unit of the outcome
 ylim_contrast = c(0, 2)  # SET AS YOU LIKE (FOR CONTRASTS )
 
 # mice imputed data
@@ -185,9 +189,80 @@ cvars
 # Env.Eff01.ActionBelief,
 # Env.Eff02.ActionFeeling,
 
+##### FOR GRANT
+#  Env.ClimateChgConcern_lead1_z
 
+#------------------------------------------------------------
+Y = "Env.ClimateChgConcern_lead1_z"
+main = "Causal effect of Trust in Science on Climate Concern"
+ylab = "Climate Concern (SD)"
+xlab1 = "Trust in Science (SD)"
+sub = "New Zealand Attitudes & Values Study: years 2018-2021, N = 33,013"
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+summary(pool(out_m))
+## g-computation
+
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+out_ct
+
+climateconcern1_c <-  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+climateconcern1_c # evalue 1.372
+
+
+# 1.372
+# show table
+# graph
+climateconcern1_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab1,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+climateconcern1_p
+norms_concern
+
+science_concern <- climateconcern1_p + 
+  theme(
+    legend.position = "right",
+    plot.title = element_text(size = 18, face = "bold"),
+    plot.subtitle = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 15),
+    legend.title = element_text(color = "Black", size = 15),
+    axis.text=element_text(size=15, face = "bold"),
+    axis.title=element_text(size=15, face = "bold")
+  ) 
+science_concern
+ggsave(
+  science_concern,
+  path = here::here(here::here("figs", "treatment-confounder-feedback")),
+  width = 8,
+  height = 6,
+  units = "in",
+  filename = "science_concern.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 400
+)
+
+science_concern
 
 ################# BELOW THE MANY OUTCOMES!  ########################################
+
 
 
 # Env.ClimateChgReal_lead2_z ----------------------------------------------
@@ -338,6 +413,22 @@ climateconcern1_p <-
     sub = sub
   )
 climateconcern1_p
+
+
+science_concern <- climateconcern1_p
+science_concern
+norms_concern
+ggsave(
+  climateconcern1_p,
+  path = here::here(here::here("figs", "treatment-confounder-feedback")),
+  width = 8,
+  height = 6,
+  units = "in",
+  filename = "science_concern.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 400
+)
 
 
 
@@ -517,6 +608,31 @@ ggsave(
   device = 'jpeg',
   limitsize = FALSE,
   dpi = 600
+)
+
+
+ggsave(
+  action1_p,
+  path = here::here(here::here("figs", "treatment-confounder-feedback")),
+  width = 6,
+  height = 6,
+  units = "in",
+  filename = "action_science.jpg",
+  device = 'jpeg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+ggsave(
+  action1_p,
+path = here::here(here::here("figs", "treatment-confounder-feedback")),
+width = 8,
+height = 8,
+units = "in",
+filename = "action_science.tiff",
+device = 'tiff',
+limitsize = FALSE,
+dpi = 600
 )
 
 
