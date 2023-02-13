@@ -39,7 +39,7 @@ pull_path <-
 
 ###############  RENAME YOUR IMPUTED DATASET  'df"
 
-df <- readh("ml_environ_omni_wave5")
+#df <- readh("ml_environ_omni_wave5")
 df <- readRDS("/Users/joseph/v-project\ Dropbox/Joseph\ Bulbulia/outcomewide/mods/ml_environ_omni_wave5")
 
 #df<- data_imputed
@@ -81,7 +81,7 @@ X = "Env.SacNorms_lead1_z"
 ############### NEXT SET UP VARIABLES FOR MODELS AND GRAPHS
 
 # You may set your label for your graphs  HERE WE STICK TO THE EXAMPLE OF WORK
-xlab = "“Do you think most New Zealanders are willing to make sacrifices\nto their standard of living in order to protect the environment? (SD)”  "  ## Weekly hours devided by 10
+xlab = "“Do you think most New Zealanders are willing to make sacrifices to\ntheir standard of living in order to protect the environment? (SD)”  "  ## Weekly hours devided by 10
 
 
 # SET THE RANGE
@@ -244,8 +244,68 @@ cvars
 #
 ##### FOR GRANT
 length(unique(df$data$id))
-Env.SacNorms.T05,
-Env.SacNorms.T06,
+
+# GRANT 1 
+
+# Env.SacMade_lead4_z ----------------------------------------------------------
+
+Y = "Env.SacMade_lead4_z "
+main = "Cause: Sacrifice Norm Perception\nOutcome: Sacrifice Made\nYears: 2013-2018, N =  13,178"
+ylab = "Sacrifice Made(SD)"
+sub = "Have you made sacrifices to your standard of living\n(e.g., accepted higher prices, driven less,\nconserved energy) in order to protect the environment?"
+
+
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+## g-computation
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+
+# coef + estimate
+sacrificemade4_c <-
+  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+sacrificemade4_c
+
+# graph
+sacrificemade4_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+
+
+made_norm <- sacrificemade4_p   + 
+  theme(
+    legend.position = "right",
+    plot.title = element_text(size = 18, face = "bold"),
+    plot.subtitle = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 15),
+    legend.title = element_text(color = "Black", size = 15),
+    axis.text=element_text(size=12, face = "bold"),
+    axis.title=element_text(size=12, face = "bold")
+  ) 
+
+made_norm
+
+
+#####
+
+
+
 #  Env.ClimateChgConcern_lead1_z ------------------------------------------------------------
 Y = "Env.ClimateChgConcern_lead2_z"
 main = "Causal effect of Descriptive Norms on Climate Concern"

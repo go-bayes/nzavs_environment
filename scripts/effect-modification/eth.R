@@ -35,6 +35,7 @@ pull_path <-
 # note the synthetic dataset is about 20% the size of the full NZAVS dataset
 dat <- arrow::read_parquet(here::here(pull_path))
 
+length(unique(dat$Id))
 
 dt <- dat |> 
   select(Id, Wave, YearMeasured, EthnicCats, Env.ClimateChgConcern, GenCohort, Gender) |> 
@@ -94,7 +95,7 @@ model_parameters(m0)
 
 pstar<- plot ( ggeffects::ggemmeans( m0, terms = c( "Wave",  "EthnicCats") ) ) + 
   labs(
-    title = "Climate Concern by Ethnicity\nNew Zealand Attitudes Values Study\nN = 17273, years 2013 & 2022",
+    title = "Cultural Differences in Climate Concern\nN = 17273, years 2013 & 2022",
    # y = "'I am deeply concerned about climate' (1-7)'",
     y = "Climate Concern (1-7)",
     x = "Years") + scale_color_okabe_ito() + theme_classic() +
@@ -138,7 +139,11 @@ dag1 <-
   image_ggplot(image_read(here::here("figs", "treatment-confounder-feedback", "tfc.tiff")),
                interpolate = T)
 
+dag_ow <-
+  image_ggplot(image_read(here::here("figs", "treatment-confounder-feedback", "ow.tiff")),
+               interpolate = T)
 
+dag_ow
 
 # important prev images, not working. 
 # science_action <-
@@ -157,33 +162,37 @@ science_concern
 
 
 library(ggpubr)
-fig1 <-
+fig2 <-
   ggarrange(
     ggarrange( p0,
-    dag1,  ncol = 1,    labels = c("A","B") ),
-    ggarrange( norms_concern,
-               science_concern,
-              labels = c( "C", "D"),
-              nrow= 1),
-  # widths = c(1,2),
+               dag_ow,  ncol = 1, 
+               heights = c(2,1),
+               labels = c("A","B")
+              ),
+    ggarrange( made_norm,
+               made_humancause,
+               labels = c( "C", "D"),
+               nrow= 1),
+  widths = c(1,2),
    # heights = c(1,1),
    # ncol = 2,
     nrow = 1
   )
 
 
-  
+fig2
   
 fig1 <-
   ggarrange(
-      ggarrange( dag1, 
-                 ggarrange ( norms_concern,
-               science_concern,
-               labels = c( "C", "D"),
-               nrow= 1), nrow = 2),
+      ggarrange( dag_ow, 
+                 ggarrange (made_norm , made_humancause,
+               labels = c( "B", "C"),
+               nrow= 1), 
+               nrow = 2),
       p0,
     widths = c(2, 1.5),
-    labels = c( "A", "B"),
+    heights = c(1,2),
+    labels = c( "A", "D"),
     # heights = c(1,1),
     # ncol = 2,
     nrow = 1
@@ -192,28 +201,13 @@ fig1 <-
 fig1
 
 
-# 
-# 
-# fig1 <-
-#   ggarrange(
-#     ggarrange( p0,
-#                dag1,  ncol = 1,    labels = c("A","B") ),
-#     ggarrange( norms_concern,
-#                science_concern,
-#                labels = c( "C", "D"),
-#                nrow= 1),
-#     # widths = c(1,2),
-#     # heights = c(1,1),
-#     # ncol = 2,
-#     nrow = 1
-#   )
 
 
 
 ggsave(
   fig1,
   path = here::here(here::here("figs", "treatment-confounder-feedback")),
-  width = 28,
+  width = 20,
   height = 10,
   units = "in",
   filename = "grant_fig.jpg",
@@ -223,6 +217,20 @@ ggsave(
 )
 
 
+ggsave(
+  fig2,
+  path = here::here(here::here("figs", "treatment-confounder-feedback")),
+  width = 20,
+  height = 10,
+  units = "in",
+  filename = "grant_fig2.jpg",
+  device = 'jpg',
+  limitsize = FALSE,
+  dpi = 600
+)
+
+dev.off()
+fig2
 
 m1 <- lm( data = dt, 
           Env.ClimateChgConcern ~ GenCohort * Wave )

@@ -1,4 +1,4 @@
-## Concern study
+d## Concern study
 
 #template_outcomewide.R
 
@@ -36,7 +36,11 @@ pull_path <-
 
 ###############  RENAME YOUR IMPUTED DATASET  'df"
 
+# not working/ need to fix
 df <- readh("ml_environ_omni_wave5")
+
+df <- readRDS("/Users/joseph/v-project\ Dropbox/Joseph\ Bulbulia/outcomewide/mods/ml_environ_omni_wave5")
+
 
 #df<- data_imputed
 
@@ -64,7 +68,6 @@ df <- readh("ml_environ_omni_wave5")
 # Env.CarbonRegs
 
 
-data_long$Env.ClimateChgCause_lead1
 X = "Env.ClimateChgCause_lead1_z"
 #Climate change is caused by humans.
 # hist(data_long$Env.ClimateChgCause_lead1)
@@ -81,7 +84,7 @@ xlab = "Climate change is caused by humans (SD)"  ## Weekly hours devided by 10
 #Climate change is caused by humans.
 
 # SET THE RANGE
-min = -2
+min = -1
 max =  1
 
 
@@ -89,7 +92,7 @@ max =  1
 x =  min:max
 
 # baseline
-r = -1
+r = 0
 
 # focal contrast for X
 f = 1
@@ -105,7 +108,7 @@ p = c(r, f) #
 #delta = 4 #
 delta = abs(r - f)
 
-ylim = c(-1, 1)  # SET AS YOU LIKE -- here, how much movement across a standard deviation unit of the outcome
+ylim = c(-1, 1.5)  # SET AS YOU LIKE -- here, how much movement across a standard deviation unit of the outcome
 ylim_contrast = c(0, 2)  # SET AS YOU LIKE (FOR CONTRASTS )
 
 # mice imputed data
@@ -237,7 +240,62 @@ cvars
 # ), 3)
 # round(EValue::evalues.RR(, lo =  , hi = , true = 1), 4)
 #
+### FOR GRANT 
 
+# Env.SacMade_lead4_z ----------------------------------------------------------
+
+Y = "Env.SacMade_lead4_z "
+main = "Cause: Belief Anthropogenic Climate\nOutcome: Sacrifice Made\nYears: 2013-2018, N =  13,178"
+ylab = "Sacrifice Made(SD)"
+sub = "Have you made sacrifices to your standard of living\n(e.g., accepted higher prices, driven less,\nconserved energy) in order to protect the environment?"
+
+
+# regression
+out_m <- mice_gaussian(df = df, X = X, Y = Y, cvars = cvars)
+
+## g-computation
+out_ct <-
+  pool_stglm_contrast(
+    out_m,
+    df = df,
+    m = 10,
+    X = X,
+    x = x,
+    r = r
+  )
+
+# coef + estimate
+sacrificemade4_c <-
+  vanderweelevalue_ols(out_ct, f - min, delta, sd)
+sacrificemade4_c
+
+# graph
+sacrificemade4_p <-
+  ggplot_stglm(
+    out_ct,
+    ylim = ylim,
+    main,
+    xlab,
+    ylab,
+    min = min,
+    p = p,
+    sub = sub
+  )
+
+
+made_humancause <- sacrificemade4_p   + 
+  theme(
+    legend.position = "right",
+    plot.title = element_text(size = 18, face = "bold"),
+    plot.subtitle = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 15),
+    legend.title = element_text(color = "Black", size = 15),
+    axis.text=element_text(size=12, face = "bold"),
+    axis.title=element_text(size=12, face = "bold")
+  ) 
+
+made_norm + made_humancause
+dev.off()
 
 ################# BELOW THE MANY OUTCOMES!  ########################################
 # Climate concern ---------------------------------------------------------
