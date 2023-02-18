@@ -166,7 +166,7 @@ fig2 <-
   ggarrange(
     ggarrange( p0,
                dag_ow,  ncol = 1, 
-               heights = c(2,1),
+               heights = c(1,1),
                labels = c("A","B")
               ),
     ggarrange( made_norm,
@@ -182,35 +182,48 @@ fig2 <-
 
 fig2
   
-fig1 <-
-  ggarrange(
-      ggarrange( dag_ow, 
-                 ggarrange (made_norm , made_humancause,
-               labels = c( "B", "C"),
-               nrow= 1), 
-               nrow = 2),
-      p0,
-    widths = c(2, 1.5),
-    heights = c(1,2),
-    labels = c( "A", "D"),
-    # heights = c(1,1),
-    # ncol = 2,
-    nrow = 1
-  )
-
-fig1
-
-
+# fig1 <-
+#   ggarrange(
+#       ggarrange( dag_ow, 
+#                  ggarrange (made_norm , made_humancause,
+#                labels = c( "B", "C"),
+#                nrow= 1), 
+#                nrow = 2),
+#       p0,
+#     widths = c(2, 1.5),
+#     heights = c(1,2),
+#     labels = c( "A", "D"),
+#     # heights = c(1,1),
+#     # ncol = 2,
+#     nrow = 1
+#   )
+# 
+# fig1
 
 
+
+# 
+# 
+# ggsave(
+#   fig1,
+#   path = here::here(here::here("figs", "treatment-confounder-feedback")),
+#   width = 20,
+#   height = 10,
+#   units = "in",
+#   filename = "grant_fig.jpg",
+#   device = 'jpg',
+#   limitsize = FALSE,
+#   dpi = 600
+# )
+# 
 
 ggsave(
-  fig1,
+  fig2,
   path = here::here(here::here("figs", "treatment-confounder-feedback")),
-  width = 20,
+  width = 24,
   height = 10,
   units = "in",
-  filename = "grant_fig.jpg",
+  filename = "grant_fig2.jpg",
   device = 'jpg',
   limitsize = FALSE,
   dpi = 600
@@ -220,7 +233,7 @@ ggsave(
 ggsave(
   fig2,
   path = here::here(here::here("figs", "treatment-confounder-feedback")),
-  width = 20,
+  width = 30,
   height = 10,
   units = "in",
   filename = "grant_fig2.jpg",
