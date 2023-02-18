@@ -157,6 +157,11 @@ dag_ow
 
 # Get graphs by running code in "Scripts" folder for the trust in science and norm-perception
 
+
+
+## Get these obojects form the human-caused-effects.R scritp and the norms-cause-change.R scrip unders "scripts"
+
+
 norms_concern
 science_concern
 
@@ -166,7 +171,7 @@ fig2 <-
   ggarrange(
     ggarrange( p0,
                dag_ow,  ncol = 1, 
-               heights = c(1,1),
+               heights = c(2,1),
                labels = c("A","B")
               ),
     ggarrange( made_norm,
@@ -220,7 +225,7 @@ fig2
 ggsave(
   fig2,
   path = here::here(here::here("figs", "treatment-confounder-feedback")),
-  width = 24,
+  width = 20,
   height = 10,
   units = "in",
   filename = "grant_fig2.jpg",
@@ -233,10 +238,10 @@ ggsave(
 ggsave(
   fig2,
   path = here::here(here::here("figs", "treatment-confounder-feedback")),
-  width = 30,
-  height = 10,
+  width = 24,
+  height = 12,
   units = "in",
-  filename = "grant_fig2.jpg",
+  filename = "grant_fig2_2.jpg",
   device = 'jpg',
   limitsize = FALSE,
   dpi = 600
