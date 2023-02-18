@@ -283,17 +283,17 @@ sacrificemade4_p <-
   )
 
 
-made_humancause <- sacrificemade4_p   + 
+made_humancause <- sacrificemade4_p    + 
   theme(
     legend.position = "right",
-    plot.title = element_text(size = 18, face = "bold"),
-    plot.subtitle = element_text(size = 12, face = "bold"),
+    plot.title = element_text(size = 22, face = "bold"),
+    plot.subtitle = element_text(size = 15, face = "bold"),
     legend.text = element_text(size = 15),
     legend.title = element_text(color = "Black", size = 15),
-    axis.text=element_text(size=12, face = "bold"),
-    axis.title=element_text(size=12, face = "bold")
+    axis.text=element_text(size=15, face = "bold"),
+    axis.title=element_text(size=15, face = "bold")
   ) 
-
+made_humancause
 made_norm + made_humancause
 dev.off()
 
